@@ -31,3 +31,10 @@ public/pagefind
 
 # docker compose
 compose.override.yaml
+
+
+.agents
+.claude
+.zcode
+
+skills-lock.json
