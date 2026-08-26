@@ -1,0 +1,50 @@
+---
+import type { CollectionEntry } from "astro:content";
+import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import Datetime from "@/components/Datetime.astro";
+import { getPostUrl } from "@/utils/getPostPaths";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+
+type Props = {
+  posts: CollectionEntry<"posts">[];
+};
+
+const { posts } = Astro.props;
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
+---
+
+<section id="recent-posts" class="pt-10 pb-6">
+  <h2 class="flex items-center gap-2.5 text-lg font-semibold tracking-wide">
+    <span aria-hidden="true" class="bg-accent inline-block size-2"></span>
+    {t.home.recentPosts}
+  </h2>
+  <ul class="mt-4">
+    {
+      posts.map(({ id, filePath, data }) => (
+        <li>
+          <a
+            href={getPostUrl(id, filePath, locale)}
+            class="group border-border/60 grid grid-cols-[auto_1fr_auto] items-baseline gap-x-4 border-b py-4 sm:grid-cols-[6.5rem_1fr_auto_auto] sm:gap-x-6"
+          >
+            <Datetime
+              pubDatetime={data.pubDatetime}
+              format="YYYY-MM-DD"
+              icon={false}
+              class="text-xs sm:text-sm"
+            />
+            <span class="text-foreground group-hover:text-accent truncate text-base transition-colors sm:text-lg">
+              {data.title}
+            </span>
+            <span class="text-muted-foreground hidden text-sm sm:inline">
+              {data.tags[0]}
+            </span>
+            <IconArrowRight class="text-muted-foreground group-hover:text-accent size-4 transition-transform group-hover:translate-x-1 rtl:-rotate-180" />
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>

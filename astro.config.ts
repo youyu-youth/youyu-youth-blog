@@ -29,8 +29,9 @@ export default defineConfig({
     }),
   ],
   i18n: {
-    locales: ["en"],
-    defaultLocale: "en",
+    // New languages must also have a matching src/i18n/lang/<locale>.ts file.
+    locales: ["zh", "en"],
+    defaultLocale: "zh",
     routing: {
       prefixDefaultLocale: false,
     },

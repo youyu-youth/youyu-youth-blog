@@ -5,11 +5,13 @@ import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
 import IconArchive from "@/assets/icons/IconArchive.svg";
 import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
 import IconSearch from "@/assets/icons/IconSearch.svg";
+import IconPalette from "@/assets/icons/IconPalette.svg";
+import IconLanguage from "@/assets/icons/IconLanguage.svg";
 import IconMoon from "@/assets/icons/IconMoon.svg";
 import IconX from "@/assets/icons/IconX.svg";
 import LinkButton from "./LinkButton.astro";
 import { stripBase, stripLocale } from "@/utils/withBase";
-import { useTranslations } from "@/i18n";
+import { availableLocales, useTranslations } from "@/i18n";
 import config from "@/config";
 
 const { site, features } = config;
@@ -32,6 +34,16 @@ const isActive = (path: string) => {
   const pathArray = path.split("/").filter(p => p.trim());
   return currentPath === path || currentPathArray[0] === pathArray[0];
 };
+
+// Language switcher: link to the same page in the next available locale.
+const localeIndex = availableLocales.indexOf(locale);
+const nextLocale =
+  availableLocales[(localeIndex + 1) % availableLocales.length] ?? locale;
+const nextLocaleName = useTranslations(nextLocale).localeName;
+const languageSwitchUrl = getRelativeLocaleUrl(
+  nextLocale,
+  currentPath === "/" ? "" : currentPath
+);
 ---
 
 <a
@@ -143,6 +155,35 @@ const isActive = (path: string) => {
             </li>
           )
         }
+        {
+          availableLocales.length > 1 && (
+            <li class="col-span-1 flex items-center justify-center">
+              <a
+                href={languageSwitchUrl}
+                class="focus-outline hover:text-accent relative flex size-full items-center justify-center gap-1 p-3 sm:size-8 sm:p-0"
+                title={t.a11y.switchLanguage}
+                aria-label={`${t.a11y.switchLanguage}: ${nextLocaleName}`}
+              >
+                <IconLanguage class="size-6 sm:absolute sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2" />
+                <span class="sm:sr-only">{nextLocaleName}</span>
+              </a>
+            </li>
+          )
+        }
+        <li class="col-span-1 flex items-center justify-center">
+          <button
+            id="palette-btn"
+            class="focus-outline hover:[&>svg]:stroke-accent relative flex size-full items-center justify-center gap-1 p-4 sm:size-8 sm:p-0"
+            title={t.a11y.switchPalette}
+            aria-label="default"
+            aria-live="polite"
+          >
+            <IconPalette
+              class="size-6 sm:absolute sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2"
+            />
+            <span data-palette-label class="sm:sr-only"> default </span>
+          </button>
+        </li>
         {
           features.lightAndDarkMode && (
             <li class="col-span-1 flex items-center justify-center">

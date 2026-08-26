@@ -1,0 +1,8 @@
+---
+// English wrapper: renders the shared default-locale page,
+// re-exporting its getStaticPaths so tag routes are duplicated.
+import Page from "@/pages/tags/[tag]/[...page].astro";
+export { getStaticPaths } from "@/pages/tags/[tag]/[...page].astro";
+---
+
+<Page {...Astro.props} />

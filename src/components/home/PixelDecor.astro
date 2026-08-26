@@ -1,0 +1,49 @@
+---
+/**
+ * Pixel-art sparkles scattered around the hero. Purely decorative,
+ * desktop-only. Colour follows the --deco design token.
+ */
+type Sparkle = {
+  shape: "plus" | "diamond";
+  left: string;
+  top: string;
+  size: number;
+  opacity: number;
+};
+
+const SHAPES: Record<Sparkle["shape"], string> = {
+  plus: "M2 0h1v2h2v1H3v2H2V3H0V2h2z",
+  diamond: "M2 0l2 2-2 2-2-2z",
+};
+
+const sparkles: Sparkle[] = [
+  { shape: "plus", left: "6%", top: "14%", size: 12, opacity: 0.8 },
+  { shape: "diamond", left: "14%", top: "72%", size: 8, opacity: 0.6 },
+  { shape: "plus", left: "24%", top: "30%", size: 8, opacity: 0.5 },
+  { shape: "plus", left: "34%", top: "66%", size: 10, opacity: 0.7 },
+  { shape: "diamond", left: "66%", top: "16%", size: 10, opacity: 0.7 },
+  { shape: "plus", left: "76%", top: "64%", size: 12, opacity: 0.8 },
+  { shape: "plus", left: "90%", top: "26%", size: 9, opacity: 0.6 },
+  { shape: "diamond", left: "86%", top: "78%", size: 8, opacity: 0.5 },
+];
+---
+
+<div
+  aria-hidden="true"
+  class="text-deco pointer-events-none absolute inset-0 hidden lg:block"
+>
+  {
+    sparkles.map(({ shape, left, top, size, opacity }) => (
+      <svg
+        viewBox="0 0 5 5"
+        width={size}
+        height={size}
+        class="absolute"
+        style={`left:${left};top:${top};opacity:${opacity}`}
+        shape-rendering="crispEdges"
+      >
+        <path fill="currentColor" d={SHAPES[shape]} />
+      </svg>
+    ))
+  }
+</div>

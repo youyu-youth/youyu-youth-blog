@@ -1,0 +1,8 @@
+---
+// English wrapper: renders the shared default-locale page,
+// re-exporting its getStaticPaths so post routes are duplicated.
+import Page from "@/pages/posts/[...slug]/index.astro";
+export { getStaticPaths } from "@/pages/posts/[...slug]/index.astro";
+---
+
+<Page {...Astro.props} />

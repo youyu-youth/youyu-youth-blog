@@ -24,10 +24,8 @@ const {
 } = Astro.props;
 
 const socialImageURL = new URL(ogImage, Astro.site ?? Astro.url);
-const rssHref = getRelativeLocaleUrl(
-  Astro.currentLocale ?? config.site.lang,
-  "rss.xml"
-);
+// The RSS endpoint only exists for the default locale.
+const rssHref = getRelativeLocaleUrl(config.site.lang, "rss.xml");
 ---
 
 <!doctype html>
@@ -96,8 +94,8 @@ const rssHref = getRelativeLocaleUrl(
     }
 
     <!--
-      Inline FOUC-prevention script: sets data-theme on <html> before
-      the browser paints. Runs synchronously, no defer/async.
+      Inline FOUC-prevention script: sets data-theme and data-palette on
+      <html> before the browser paints. Runs synchronously, no defer/async.
     -->
     <script is:inline>
       (function () {
@@ -106,11 +104,13 @@ const rssHref = getRelativeLocaleUrl(
           "(prefers-color-scheme: dark)"
         ).matches;
         const theme = stored ?? (prefersDark ? "dark" : "light");
+        const palette = localStorage.getItem("palette") ?? "default";
         const root = document.firstElementChild;
         root?.setAttribute("data-theme", theme);
+        root?.setAttribute("data-palette", palette);
         root?.classList.toggle("dark", theme === "dark");
-        // Expose value so theme.ts can skip re-detection.
-        window.__theme = { value: theme };
+        // Expose values so theme.ts can skip re-detection.
+        window.__theme = { value: theme, palette: palette };
       })();
     </script>
 

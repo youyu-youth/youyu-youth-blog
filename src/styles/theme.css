@@ -7,12 +7,22 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
+  --color-deco: var(--deco);
   --font-app: var(--font-google-sans-code);
 }
 
-/* Light theme values */
+/*
+ * Colour palettes. "Mode" (light/dark via data-theme) and "palette"
+ * (via data-palette) are orthogonal: each palette defines its own
+ * light & dark variable sets. To add a palette, copy one of the blocks
+ * below, register its name in src/utils/palettes.ts, done.
+ */
+
+/* ===== default palette ===== */
+
+/* Light values */
 :root,
-[data-theme="light"] {
+[data-palette="default"][data-theme="light"] {
   --background: #fdfdfd;
   --foreground: #282728;
   --accent: #006cac;
@@ -20,10 +30,12 @@
   --muted: #e6e6e6;
   --muted-foreground: #6b7280;
   --border: #ece9e9;
+  --deco: var(--accent);
 }
 
-/* Dark theme values */
-[data-theme="dark"] {
+/* Dark values */
+[data-theme="dark"]:not([data-palette]),
+[data-palette="default"][data-theme="dark"] {
   --background: #212737;
   --foreground: #eaedf3;
   --accent: #ff6b01;
@@ -31,4 +43,31 @@
   --muted: #343f60;
   --muted-foreground: #afb9ca;
   --border: #ab4b08;
+  --deco: var(--accent);
+}
+
+/* ===== pixel palette（像素绿，首页参考图配色）===== */
+
+/* Light values */
+[data-palette="pixel"][data-theme="light"] {
+  --background: #f0f3e6;
+  --foreground: #24301c;
+  --accent: #4d7c2f;
+  --accent-foreground: #ffffff;
+  --muted: #dde5cc;
+  --muted-foreground: #5d6d50;
+  --border: #c6d3ae;
+  --deco: #7a9b58;
+}
+
+/* Dark values */
+[data-palette="pixel"][data-theme="dark"] {
+  --background: #0b120c;
+  --foreground: #c2d4ac;
+  --accent: #a3c76f;
+  --accent-foreground: #0b120c;
+  --muted: #1c2a1e;
+  --muted-foreground: #77896a;
+  --border: #263726;
+  --deco: #b9d88a;
 }

@@ -12,6 +12,9 @@ for (const [path, mod] of Object.entries(modules)) {
   translations[locale] = mod.default;
 }
 
+/** All locales that have a language file, in stable (sorted) order. */
+export const availableLocales = Object.keys(translations).sort();
+
 /** Returns UI strings for the given locale, falling back to English. */
 export function useTranslations(locale: string = "en"): UIStrings {
   return translations[locale] ?? translations["en"];

@@ -1,4 +1,13 @@
+import {
+  DEFAULT_PALETTE,
+  PALETTE_LABELS,
+  isPalette,
+  nextPalette,
+  type Palette,
+} from "@/utils/palettes";
+
 const THEME_KEY = "theme";
+const PALETTE_KEY = "palette";
 const LIGHT = "light";
 const DARK = "dark";
 
@@ -10,21 +19,41 @@ function getPreferredTheme(): string {
     : LIGHT;
 }
 
-// Reuse the value already set by the inline FOUC-prevention script if available.
-let themeValue: string =
-  (window as unknown as { __theme?: { value: string } }).__theme?.value ??
-  getPreferredTheme();
+function getPreferredPalette(): Palette {
+  const stored = localStorage.getItem(PALETTE_KEY);
+  return isPalette(stored) ? stored : DEFAULT_PALETTE;
+}
+
+// Reuse the values already set by the inline FOUC-prevention script if available.
+const preset = (
+  window as unknown as { __theme?: { value: string; palette?: string } }
+).__theme;
+
+let themeValue: string = preset?.value ?? getPreferredTheme();
+let paletteValue: Palette = isPalette(preset?.palette)
+  ? preset.palette
+  : getPreferredPalette();
 
 function persist(): void {
   localStorage.setItem(THEME_KEY, themeValue);
+  localStorage.setItem(PALETTE_KEY, paletteValue);
   reflect();
 }
 
 function reflect(): void {
   const root = document.firstElementChild;
   root?.setAttribute("data-theme", themeValue);
+  root?.setAttribute("data-palette", paletteValue);
   root?.classList.toggle("dark", themeValue === DARK);
   document.querySelector("#theme-btn")?.setAttribute("aria-label", themeValue);
+  document
+    .querySelector("#palette-btn")
+    ?.setAttribute("aria-label", paletteValue);
+
+  // Update the palette switcher label.
+  document.querySelectorAll("[data-palette-label]").forEach(el => {
+    el.textContent = PALETTE_LABELS[paletteValue];
+  });
 
   // Fill <meta name="theme-color"> with the computed background colour so
   // Android's browser chrome matches the page background.
@@ -38,6 +67,10 @@ function setup(): void {
   reflect();
   document.querySelector("#theme-btn")?.addEventListener("click", () => {
     themeValue = themeValue === LIGHT ? DARK : LIGHT;
+    persist();
+  });
+  document.querySelector("#palette-btn")?.addEventListener("click", () => {
+    paletteValue = nextPalette(paletteValue);
     persist();
   });
 }

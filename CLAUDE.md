@@ -8,14 +8,29 @@ astro dev --background
 
 使用 `astro dev stop`、`astro dev status` 和 `astro dev logs` 管理后台服务器。
 
-
-不要重复造轮子，优先复用现有可用的ui组件
-组件化优先
+## 开发原则
+- 不要重复造轮子，优先复用现有可用的ui组件,组件化优先
+- 禁止渐变色，响应式布局,适配移动端
 
 ## 工具使用习惯
 - 涉及到浏览器交互的操作，优先使用 browser-use mcp 工具
 - 技术文档查询时，适用context7 tools 即可 (在LLM知识库对该技术文档的掌握低于90%时即可使用 context7 实时查询)
 
+
+
+## 技术栈
+Main Framework - Astro
+Type Checking - TypeScript
+Styling - TailwindCSS
+UI/UX - Figma Design File
+Static Search - Pagefind
+Icons - Tablers
+Code Formatting - Prettier
+Deployment - Cloudflare Pages
+Linting - ESLint
+Dynamic OG images - Satori + Sharp + Astro Fonts
+
+README.md
 
 ## 文档参考
 
@@ -66,11 +81,17 @@ astro dev --background
 
 - 经 `@tailwindcss/vite` 插件 + `src/styles/global.css` 中的 `@import "tailwindcss"` 启用（v4 写法）。**无 `tailwind.config.js`**，不要创建。
 - 自定义工具用 `@utility`（如 `max-w-app`、`app-layout`、`active-nav`），暗色变体用 `@custom-variant dark`（基于 `[data-theme=dark]`）。
-- 明暗主题：在 `<html>` 上设 `data-theme` 属性并切换 `.dark` 类；`Layout.astro` 内含同步 FOUC 防抖脚本，`src/scripts/theme.ts` 负责运行时切换，改动需同步两者。
+- 主题体系为「明暗模式 × 配色预设」两个正交维度：`<html data-theme="light|dark" data-palette="...">`。语义 CSS 变量（`--background`、`--accent`、`--deco` 等）定义在 `src/styles/theme.css` 的各调色板块中，`@theme inline` 将其桥接为 Tailwind 令牌（`bg-background`、`text-accent` 等），**组件中不要硬编码颜色**。
+- 配色预设清单在 `src/utils/palettes.ts`（当前 `default`、`pixel`）。新增主题 = 在 `theme.css` 复制一组 `[data-palette="x"][data-theme="light|dark"]` 变量块 + 在 `palettes.ts` 注册名称，Header 调色板按钮自动循环到它。
+- 运行时切换：`Layout.astro` 内联 FOUC 防抖脚本同步设置 `data-theme`/`data-palette`（localStorage 键 `theme`/`palette`），`src/scripts/theme.ts` 负责交互切换，改动需同步两者。
 
 ## 国际化（i18n）
 
-`astro.config.ts` 当前仅 `locales: ["en"]`、`prefixDefaultLocale: false`（默认语言不加 URL 前缀）。UI 文案存放于 `src/i18n/lang/*.ts`，经 `useTranslations(locale)` / `tplStr` 访问，缺省回退到 `en`。新增语言须同时在 `astro.config.ts` 的 `i18n.locales` 注册并新增对应 lang 文件。
+- `astro.config.ts`：`locales: ["zh", "en"]`、`defaultLocale: "zh"`、`prefixDefaultLocale: false`——中文在根路径（`/`），英文在 `/en/` 前缀下。
+- UI 文案存放于 `src/i18n/lang/*.ts`（文件名即 locale），经 `useTranslations(locale)` / `tplStr` 访问，缺省回退到 `en`；语言包结构由 `src/i18n/types.ts` 的 `UIStrings` 约束，新增 key 需同步所有语言文件。
+- Astro 静态构建不会自动复制页面，因此 `/en/` 路由由 `src/pages/en/` 下的**包装页**生成：每个文件仅 `import Page from "@/pages/<原页面>"` 并渲染（动态路由再 `export { getStaticPaths }`），`Astro.currentLocale` 会正确传递为 `"en"`。新增页面时须同步在 `src/pages/en/` 加包装页。
+- 新增语言：① `astro.config.ts` 的 `i18n.locales` 注册；② 新增 `src/i18n/lang/<locale>.ts`；③ 在 `src/pages/` 下建对应 `<locale>/` 包装页目录（参照 `en/`）。Header 语言切换器自动循环所有语言。
+- 仅 UI 多语言：文章内容（posts）不分语言，所有语言下显示同一批文章。RSS 与文章 OG 图端点只存在于默认语言路径。
 
 ## 测试
 

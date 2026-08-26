@@ -1,6 +1,7 @@
 import type { UIStrings } from "../types";
 
 export default {
+  localeName: "English",
   nav: {
     home: "Home",
     posts: "Posts",
@@ -25,13 +26,18 @@ export default {
   pagination: {
     prev: "Prev",
     next: "Next",
-    page: "Page",
+    page: "page {{n}}",
   },
   home: {
     socialLinks: "Social Links",
     featured: "Featured",
     recentPosts: "Recent Posts",
     allPosts: "All Posts",
+    heroTagline: "Between code and thought, searching for better answers.",
+    heroRole: "Developer",
+    heroLocation: "China · Beijing",
+    heroQuote: "Build ideas. Ship slowly.",
+    heroQuoteAuthor: "",
   },
   footer: {
     copyright: "Copyright",
@@ -58,6 +64,8 @@ export default {
     openMenu: "Open menu",
     closeMenu: "Close menu",
     toggleTheme: "Toggle theme",
+    switchPalette: "Switch colour palette",
+    switchLanguage: "Switch language",
     searchPlaceholder: "Search posts...",
     noResults: "No results found",
     goToPreviousPage: "Go to previous page",

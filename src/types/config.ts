@@ -9,6 +9,12 @@ interface SiteConfig {
   author: string;
   /** Author profile URL (used in structured data) */
   profile?: string;
+  /**
+   * Avatar image filename in src/assets/images (e.g. "avatar.png"),
+   * shown in the home page hero. A placeholder initial is used when
+   * omitted or when the file does not exist.
+   */
+  avatar?: string;
   /** Fallback OG image filename in /public, e.g. "og.jpg" */
   ogImage?: string;
   /** HTML lang attribute, defaults to "en" */
@@ -115,7 +121,7 @@ type ResolvedSiteConfig = Required<
     | "ogImage"
   >
 > &
-  Pick<SiteConfig, "profile" | "googleVerification">;
+  Pick<SiteConfig, "profile" | "googleVerification" | "avatar">;
 
 export interface ResolvedAstroPaperConfig {
   site: ResolvedSiteConfig;
