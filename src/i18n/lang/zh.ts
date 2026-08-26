@@ -6,6 +6,12 @@ export default {
     home: "首页",
     posts: "文章",
     tags: "标签",
+    categories: "分类",
+    projects: "项目",
+    bookmarks: "收藏",
+    albums: "相册",
+    skills: "技能",
+    tools: "工具",
     about: "关于",
     archives: "归档",
     search: "搜索",
@@ -58,6 +64,27 @@ export default {
 
     searchTitle: "搜索",
     searchDesc: "搜索任意文章……",
+
+    categoriesTitle: "分类",
+    categoriesDesc: "按分类浏览文章。",
+
+    categoryTitle: "分类",
+    categoryDesc: "该分类下的所有文章",
+
+    projectsTitle: "项目",
+    projectsDesc: "我的作品与开源项目。",
+
+    bookmarksTitle: "收藏",
+    bookmarksDesc: "精心收藏的链接与资源。",
+
+    albumsTitle: "相册",
+    albumsDesc: "记录生活的光影。",
+
+    skillsTitle: "技能",
+    skillsDesc: "掌握的技术栈与工具。",
+
+    toolsTitle: "工具",
+    toolsDesc: "常用的工具与资源导航。",
   },
   a11y: {
     skipToContent: "跳到正文",
@@ -75,5 +102,45 @@ export default {
     title: "404 页面不存在",
     message: "页面不存在",
     goHome: "返回首页",
+  },
+  donate: {
+    title: "打赏支持",
+    tip: "如果觉得文章有帮助，欢迎打赏支持",
+    wechat: "微信",
+    alipay: "支付宝",
+    close: "关闭",
+  },
+  bookmarks: {
+    searchPlaceholder: "搜索收藏…",
+    allCategories: "全部",
+    count: "{{n}} 个收藏",
+    importTip: "可通过 `pnpm bookmarks:import <html>` 批量导入浏览器书签",
+  },
+  albums: {
+    count: "{{n}} 张照片",
+    empty: "暂无照片",
+  },
+  skills: {
+    years: "{{n}} 年",
+    level: "熟练度",
+  },
+  tools: {
+    visit: "访问",
+  },
+  projects: {
+    visitDemo: "预览",
+    viewCode: "源码",
+    techStack: "技术栈",
+    statusShipped: "已发布",
+    statusBuilding: "进行中",
+    statusArchived: "已归档",
+  },
+  categories: {
+    count: "{{n}} 篇文章",
+    allPosts: "全部文章",
+  },
+  sideNav: {
+    title: "探索",
+    explore: "探索",
   },
 } satisfies UIStrings;

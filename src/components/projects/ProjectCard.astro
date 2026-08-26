@@ -1,0 +1,96 @@
+---
+import { Image } from "astro:assets";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import config from "@/config";
+import type { CollectionEntry } from "astro:content";
+
+type Props = CollectionEntry<"projects">;
+
+const { id, data } = Astro.props;
+const { title, description, techStack, github, demo, status, cover } = data;
+const locale = Astro.currentLocale ?? config.site.lang;
+import { useTranslations } from "@/i18n";
+const t = useTranslations(locale);
+const statusLabel =
+  status === "shipped"
+    ? t.projects.statusShipped
+    : status === "building"
+      ? t.projects.statusBuilding
+      : t.projects.statusArchived;
+---
+
+<li
+  class="border-border bg-card flex flex-col gap-3 rounded-lg border p-4 transition hover:shadow-sm"
+>
+  {
+    cover && typeof cover === "object" && "src" in cover ? (
+      <Image
+        src={cover}
+        alt={title}
+        widths={[400, 800]}
+        sizes="(max-width: 768px) 100vw, 400px"
+        class="aspect-video w-full rounded-md object-cover"
+      />
+    ) : cover && typeof cover === "string" ? (
+      <img
+        src={cover}
+        alt={title}
+        class="aspect-video w-full rounded-md object-cover"
+      />
+    ) : null
+  }
+  <div class="flex items-start justify-between gap-2">
+    <a
+      href={getRelativeLocaleUrl(locale, `projects/${id}/`)}
+      class="text-accent text-lg font-semibold hover:underline"
+    >
+      {title}
+    </a>
+    <span
+      class:list={[
+        "shrink-0 rounded-full px-2 py-0.5 text-xs font-medium",
+        status === "shipped" && "bg-accent text-accent-foreground",
+        status === "building" && "bg-muted text-foreground",
+        status === "archived" && "text-muted-foreground border",
+      ]}
+    >
+      {statusLabel}
+    </span>
+  </div>
+  <p class="text-muted-foreground line-clamp-3 text-sm">{description}</p>
+  {
+    techStack.length > 0 && (
+      <div class="flex flex-wrap gap-1.5">
+        {techStack.map(s => (
+          <span class="bg-muted rounded px-1.5 py-0.5 text-xs">{s}</span>
+        ))}
+      </div>
+    )
+  }
+  <div class="mt-auto flex gap-2 pt-2">
+    {
+      github && (
+        <a
+          href={github}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="border-border hover:bg-muted inline-flex items-center rounded border px-3 py-1 text-xs font-medium"
+        >
+          {t.projects.viewCode}
+        </a>
+      )
+    }
+    {
+      demo && (
+        <a
+          href={demo}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-accent text-accent-foreground inline-flex items-center rounded px-3 py-1 text-xs font-medium hover:opacity-90"
+        >
+          {t.projects.visitDemo}
+        </a>
+      )
+    }
+  </div>
+</li>

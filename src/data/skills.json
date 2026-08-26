@@ -1,0 +1,58 @@
+[
+  {
+    "name": "TypeScript",
+    "icon": "typescript",
+    "level": 5,
+    "years": 4,
+    "desc": "日常主力语言，熟悉类型体操与工程化"
+  },
+  {
+    "name": "Astro",
+    "icon": "astro",
+    "level": 4,
+    "years": 2,
+    "desc": "静态站点与 Islands 架构"
+  },
+  {
+    "name": "React / Next.js",
+    "icon": "react",
+    "level": 4,
+    "years": 3,
+    "desc": "Hooks、SSR/SSG、性能优化"
+  },
+  {
+    "name": "Node.js",
+    "icon": "nodejs",
+    "level": 4,
+    "years": 3,
+    "desc": "Koa / Express / 脚手架与脚本"
+  },
+  {
+    "name": "Tailwind CSS",
+    "icon": "tailwind",
+    "level": 5,
+    "years": 3,
+    "desc": "原子化 CSS 与设计系统"
+  },
+  {
+    "name": "Python",
+    "icon": "python",
+    "level": 3,
+    "years": 2,
+    "desc": "数据处理与自动化脚本"
+  },
+  {
+    "name": "Docker",
+    "icon": "docker",
+    "level": 3,
+    "years": 2,
+    "desc": "容器化与 CI/CD"
+  },
+  {
+    "name": "PostgreSQL",
+    "icon": "postgresql",
+    "level": 3,
+    "years": 2,
+    "desc": "SQL 设计与优化"
+  }
+]

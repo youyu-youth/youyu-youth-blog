@@ -1,0 +1,155 @@
+---
+import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+import { tplStr } from "@/i18n";
+
+export async function getStaticPaths() {
+  const albums = await getCollection("albums", ({ data }) => !data.draft);
+  return albums.map(a => ({
+    params: { slug: a.id },
+    props: { album: a },
+  }));
+}
+
+const { album } = Astro.props;
+const { title, description, pubDatetime, photos } = album.data;
+const { Content } = await render(album);
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
+---
+
+<Layout title={`${title} | ${config.site.title}`} description={description}>
+  <Header />
+  <main id="main-content" class="app-layout my-8">
+    <a
+      href={`/${locale === config.site.lang ? "" : locale + "/"}albums/`}
+      class="text-accent mb-4 inline-flex text-sm hover:underline"
+      >← {t.post.goBack}</a
+    >
+    <h1 class="text-2xl font-bold">{title}</h1>
+    {
+      description && (
+        <p class="text-muted-foreground mt-2 text-sm">{description}</p>
+      )
+    }
+    <p class="text-muted-foreground mt-2 text-xs">
+      {pubDatetime.toLocaleDateString(locale)} · {
+        tplStr(t.albums.count, { n: photos.length })
+      }
+    </p>
+
+    <article class="app-prose mt-4">
+      <Content />
+    </article>
+
+    {
+      photos.length > 0 ? (
+        <div id="album-grid" class="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-3">
+          {photos.map(p => (
+            <button
+              class="album-thumb group focus-visible:border-accent overflow-hidden rounded-lg border border-transparent focus-visible:outline-none"
+              data-src={typeof p.src === "string" ? p.src : p.src.src}
+              data-caption={p.caption || ""}
+              aria-label={p.alt || p.caption || title}
+            >
+              {typeof p.src === "string" ? (
+                <img
+                  src={p.src}
+                  alt={p.alt || p.caption || ""}
+                  class="aspect-square w-full object-cover transition group-hover:opacity-90"
+                  loading="lazy"
+                />
+              ) : (
+                <Image
+                  src={p.src}
+                  alt={p.alt || p.caption || ""}
+                  widths={[400, 800]}
+                  sizes="(max-width:768px) 50vw, 33vw"
+                  class="aspect-square w-full object-cover transition group-hover:opacity-90"
+                />
+              )}
+              {p.caption && (
+                <span class="block truncate bg-black/60 px-2 py-1 text-xs text-white">
+                  {p.caption}
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
+      ) : (
+        <p class="text-muted-foreground mt-6 text-sm">{t.albums.empty}</p>
+      )
+    }
+  </main>
+  <Footer />
+
+  <div
+    id="lightbox"
+    class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
+  >
+    <button
+      id="lb-close"
+      class="absolute top-4 right-4 rounded p-2 text-2xl text-white"
+      aria-label={t.donate.close}>×</button
+    >
+    <figure class="flex max-h-[90vh] max-w-[90vw] flex-col items-center">
+      <img
+        id="lb-img"
+        src=""
+        alt=""
+        class="max-h-[80vh] max-w-full object-contain"
+      />
+      <figcaption id="lb-cap" class="mt-2 text-sm text-white"></figcaption>
+    </figure>
+  </div>
+</Layout>
+
+<script>
+  function initAlbumLightbox() {
+    const grid = document.getElementById("album-grid");
+    const box = document.getElementById("lightbox") as HTMLElement | null;
+    const img = document.getElementById("lb-img") as HTMLImageElement | null;
+    const cap = document.getElementById("lb-cap");
+    const closeBtn = document.getElementById("lb-close");
+    if (!grid || !box || !img) return;
+
+    function open(src: string, caption: string) {
+      if (!img || !box) return;
+      img.src = src;
+      img.alt = caption;
+      if (cap) cap.textContent = caption;
+      box.classList.remove("hidden");
+      box.classList.add("flex");
+      document.body.style.overflow = "hidden";
+    }
+    function close() {
+      if (!box || !img) return;
+      box.classList.add("hidden");
+      box.classList.remove("flex");
+      document.body.style.overflow = "";
+      img.src = "";
+    }
+
+    grid.querySelectorAll<HTMLButtonElement>(".album-thumb").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const src = btn.dataset.src;
+        const c = btn.dataset.caption || "";
+        if (src) open(src, c);
+      });
+    });
+    closeBtn?.addEventListener("click", close);
+    box.addEventListener("click", e => {
+      if (e.target === box) close();
+    });
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape" && !box.classList.contains("hidden")) close();
+    });
+  }
+  initAlbumLightbox();
+  document.addEventListener("astro:after-swap", initAlbumLightbox);
+</script>

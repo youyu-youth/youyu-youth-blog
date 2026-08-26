@@ -1,0 +1,81 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import ToolCard from "@/components/tools/ToolCard.astro";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+import tools from "@/data/tools.json";
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
+
+const categories = [
+  ...new Set(tools.map(t => t.category).filter(Boolean)),
+] as string[];
+---
+
+<Layout title={`${t.pages.toolsTitle} | ${config.site.title}`}>
+  <Header />
+  <Breadcrumb />
+  <Main pageTitle={t.pages.toolsTitle} pageDesc={t.pages.toolsDesc}>
+    <div id="tools-root" data-tools={JSON.stringify(tools)}>
+      <div class="mb-4 flex flex-wrap gap-2">
+        <button
+          data-filter="all"
+          class="filter-btn bg-accent text-accent-foreground rounded-full px-3 py-1 text-xs font-medium"
+        >
+          {t.bookmarks.allCategories}
+        </button>
+        {
+          categories.map(cat => (
+            <button
+              data-filter={cat}
+              class="filter-btn border-border hover:bg-muted rounded-full border px-3 py-1 text-xs"
+            >
+              {cat}
+            </button>
+          ))
+        }
+      </div>
+      <ul id="tools-grid" class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          tools.map(tool => (
+            <li data-category={tool.category}>
+              <ToolCard {...tool} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Main>
+  <Footer />
+</Layout>
+
+<script>
+  function initToolsFilter() {
+    const root = document.getElementById("tools-root");
+    if (!root) return;
+    const btns = root.querySelectorAll<HTMLButtonElement>(".filter-btn");
+    const items = document.querySelectorAll<HTMLLIElement>("#tools-grid > li");
+    btns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const filter = btn.dataset.filter;
+        btns.forEach(b => {
+          b.classList.remove("bg-accent", "text-accent-foreground");
+          b.classList.add("border", "border-border");
+        });
+        btn.classList.add("bg-accent", "text-accent-foreground");
+        btn.classList.remove("border", "border-border");
+        items.forEach(li => {
+          const cat = li.dataset.category;
+          li.style.display = filter === "all" || cat === filter ? "" : "none";
+        });
+      });
+    });
+  }
+  initToolsFilter();
+  document.addEventListener("astro:after-swap", initToolsFilter);
+</script>

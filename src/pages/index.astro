@@ -6,6 +6,7 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Hero from "@/components/home/Hero.astro";
+import SideNav from "@/components/home/SideNav.astro";
 import RecentPosts from "@/components/home/RecentPosts.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import { getSortedPosts } from "@/utils/getSortedPosts";
@@ -25,23 +26,26 @@ const homePath = getRelativeLocaleUrl(locale, "");
 
 <Layout>
   <Header />
-  <main
-    id="main-content"
-    data-layout="index"
-    data-home-path={homePath}
-    class="app-layout my-1"
-  >
-    <Hero />
+  <SideNav />
+  <div class="app-layout my-1">
+    <main
+      id="main-content"
+      data-layout="index"
+      data-home-path={homePath}
+      class="min-w-0"
+    >
+      <Hero />
 
-    {recentPosts.length > 0 && <RecentPosts posts={recentPosts} />}
+      {recentPosts.length > 0 && <RecentPosts posts={recentPosts} />}
 
-    <div class="my-8 text-center">
-      <LinkButton href={getRelativeLocaleUrl(locale, "posts")}>
-        {t.home.allPosts}
-        <IconArrowRight class="inline-block rtl:-rotate-180" />
-      </LinkButton>
-    </div>
-  </main>
+      <div class="my-8 text-center">
+        <LinkButton href={getRelativeLocaleUrl(locale, "posts")}>
+          {t.home.allPosts}
+          <IconArrowRight class="inline-block rtl:-rotate-180" />
+        </LinkButton>
+      </div>
+    </main>
+  </div>
   <Footer />
 </Layout>
 

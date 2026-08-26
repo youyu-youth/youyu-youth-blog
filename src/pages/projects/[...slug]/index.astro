@@ -1,0 +1,109 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+import { Image } from "astro:assets";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects", ({ data }) => !data.draft);
+  return projects.map(p => ({
+    params: { slug: p.id },
+    props: { project: p },
+  }));
+}
+
+const { project } = Astro.props;
+const {
+  title,
+  description,
+  pubDatetime,
+  techStack,
+  github,
+  demo,
+  status,
+  cover,
+} = project.data;
+const { Content } = await render(project);
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
+---
+
+<Layout title={`${title} | ${config.site.title}`} description={description}>
+  <Header />
+  <main id="main-content" class="app-layout my-8">
+    <a
+      href={`/${locale === config.site.lang ? "" : locale + "/"}projects/`}
+      class="text-accent mb-4 inline-flex items-center gap-1 text-sm hover:underline"
+    >
+      ← {t.post.goBack}
+    </a>
+    <h1 class="text-accent text-2xl font-bold sm:text-3xl">{title}</h1>
+    <p class="text-muted-foreground mt-2">{description}</p>
+    <div class="mt-4 flex flex-wrap items-center gap-2 text-sm">
+      <span class="bg-muted rounded px-2 py-1 text-xs">{status}</span>
+      <span class="text-muted-foreground"
+        >{pubDatetime.toLocaleDateString(locale)}</span
+      >
+      {
+        techStack.length > 0 && (
+          <span class="flex flex-wrap gap-1">
+            {techStack.map(s => (
+              <span class="bg-card border-border rounded border px-1.5 py-0.5 text-xs">
+                {s}
+              </span>
+            ))}
+          </span>
+        )
+      }
+    </div>
+    {
+      cover && typeof cover === "object" && "src" in cover ? (
+        <Image
+          src={cover}
+          alt={title}
+          class="mt-6 w-full rounded-lg object-cover"
+          widths={[800, 1200]}
+        />
+      ) : cover && typeof cover === "string" ? (
+        <img
+          src={cover}
+          alt={title}
+          class="mt-6 w-full rounded-lg object-cover"
+        />
+      ) : null
+    }
+    <article class="app-prose mt-8">
+      <Content />
+    </article>
+    <div class="mt-8 flex gap-2">
+      {
+        github && (
+          <a
+            href={github}
+            target="_blank"
+            rel="noopener"
+            class="border-border hover:bg-muted rounded border px-4 py-2 text-sm font-medium"
+          >
+            {t.projects.viewCode}
+          </a>
+        )
+      }
+      {
+        demo && (
+          <a
+            href={demo}
+            target="_blank"
+            rel="noopener"
+            class="bg-accent text-accent-foreground rounded px-4 py-2 text-sm font-medium"
+          >
+            {t.projects.visitDemo}
+          </a>
+        )
+      }
+    </div>
+  </main>
+  <Footer />
+</Layout>

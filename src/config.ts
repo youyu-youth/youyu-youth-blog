@@ -36,6 +36,12 @@ const config: ResolvedAstroPaperConfig = {
   },
   socials: userConfig.socials ?? [],
   shareLinks: userConfig.shareLinks ?? [],
+  donate: {
+    enabled: userConfig.donate?.enabled ?? true,
+    wechat: userConfig.donate?.wechat ?? "/qr/wechat-placeholder.svg",
+    alipay: userConfig.donate?.alipay ?? "/qr/alipay-placeholder.svg",
+    tip: userConfig.donate?.tip ?? "如果觉得文章有帮助，欢迎打赏支持",
+  },
 };
 
 export default config;

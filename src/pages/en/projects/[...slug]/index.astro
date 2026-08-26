@@ -1,0 +1,6 @@
+---
+import Page from "@/pages/projects/[...slug]/index.astro";
+export { getStaticPaths } from "@/pages/projects/[...slug]/index.astro";
+---
+
+<Page {...Astro.props} />

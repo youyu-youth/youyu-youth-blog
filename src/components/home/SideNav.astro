@@ -1,0 +1,120 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+import IconArticle from "@/assets/icons/IconArticle.svg";
+import IconCategory from "@/assets/icons/IconCategory.svg";
+import IconHash from "@/assets/icons/IconHash.svg";
+import IconCode from "@/assets/icons/IconCode.svg";
+import IconBookmark from "@/assets/icons/IconBookmark.svg";
+import IconTool from "@/assets/icons/IconTool.svg";
+import IconPhoto from "@/assets/icons/IconPhoto.svg";
+import IconSpark from "@/assets/icons/IconSpark.svg";
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
+
+const navItems = [
+  { href: "posts", label: t.nav.posts, Icon: IconArticle },
+  { href: "categories", label: t.nav.categories, Icon: IconCategory },
+  { href: "tags", label: t.nav.tags, Icon: IconHash },
+  { href: "projects", label: t.nav.projects, Icon: IconCode },
+  { href: "bookmarks", label: t.nav.bookmarks, Icon: IconBookmark },
+  { href: "tools", label: t.nav.tools, Icon: IconTool },
+  { href: "albums", label: t.nav.albums, Icon: IconPhoto },
+  { href: "skills", label: t.nav.skills, Icon: IconSpark },
+];
+
+const currentPath = Astro.url.pathname;
+function isActive(href: string) {
+  const base = getRelativeLocaleUrl(locale, href);
+  return currentPath.startsWith(base);
+}
+---
+
+{/* Mobile: horizontal pill nav inside page flow */}
+<div class="app-layout my-2 lg:hidden">
+  <nav aria-label={t.sideNav.title}>
+    <ul class="flex gap-2 overflow-x-auto pb-1">
+      {
+        navItems.map(({ href, label, Icon }) => (
+          <li class="shrink-0">
+            <a
+              href={getRelativeLocaleUrl(locale, href)}
+              class:list={[
+                "inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[14px] font-[var(--font-wenkai)] whitespace-nowrap transition",
+                isActive(href)
+                  ? "bg-accent text-accent-foreground font-medium"
+                  : "bg-muted text-foreground hover:opacity-80",
+              ]}
+            >
+              <Icon class="size-4 shrink-0 opacity-80" />
+              {label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</div>
+
+{/* Desktop: fixed far-left, no border/frame, no counts */}
+<aside
+  class="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:flex lg:w-[176px] lg:flex-col lg:px-4 lg:py-6"
+  aria-label={t.sideNav.title}
+>
+  <div class="mt-14 flex flex-1 flex-col font-[var(--font-wenkai)]">
+    <h2
+      class="text-muted-foreground mb-5 px-2 text-[11px] font-semibold tracking-[0.18em] uppercase"
+    >
+      {t.sideNav.explore}
+    </h2>
+    <nav class="flex-1">
+      <ul class="flex flex-col gap-1.5">
+        {
+          navItems.map(({ href, label, Icon }) => (
+            <li>
+              <a
+                href={getRelativeLocaleUrl(locale, href)}
+                class:list={[
+                  "flex items-center gap-2.5 rounded-md px-2.5 py-2 text-[16px] leading-7 tracking-wide transition",
+                  isActive(href)
+                    ? "bg-accent text-accent-foreground font-medium"
+                    : "text-foreground hover:bg-muted/60",
+                ]}
+              >
+                <Icon
+                  class:list={[
+                    "size-4 shrink-0",
+                    isActive(href) ? "opacity-100" : "text-deco opacity-90",
+                  ]}
+                />
+                <span>{label}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <div class="mt-6 flex flex-col gap-1 text-xs">
+      <a
+        href={getRelativeLocaleUrl(locale, "archives")}
+        class="text-muted-foreground hover:text-accent px-2 py-1"
+      >
+        {t.nav.archives}
+      </a>
+      <a
+        href={getRelativeLocaleUrl(locale, "about")}
+        class="text-muted-foreground hover:text-accent px-2 py-1"
+      >
+        {t.nav.about}
+      </a>
+      <a
+        href={getRelativeLocaleUrl(locale, "search")}
+        class="text-muted-foreground hover:text-accent px-2 py-1"
+      >
+        {t.nav.search}
+      </a>
+    </div>
+  </div>
+</aside>

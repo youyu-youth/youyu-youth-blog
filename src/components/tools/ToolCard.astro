@@ -1,0 +1,59 @@
+---
+type Props = {
+  name: string;
+  url: string;
+  description?: string;
+  category?: string;
+  icon?: string;
+};
+
+const { name, url, description, category, icon } = Astro.props;
+let domain = "";
+try {
+  domain = new URL(url).hostname;
+} catch {}
+const favicon =
+  icon || (domain ? `https://icons.duckduckgo.com/ip3/${domain}.ico` : "");
+---
+
+<a
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="border-border bg-card flex gap-3 rounded-lg border p-4 transition hover:shadow-sm"
+>
+  {
+    favicon ? (
+      <img
+        src={favicon}
+        alt=""
+        width="32"
+        height="32"
+        class="size-8 shrink-0 rounded bg-white object-contain p-1"
+        loading="lazy"
+      />
+    ) : (
+      <div class="bg-muted size-8 shrink-0 rounded" />
+    )
+  }
+  <div class="min-w-0 flex-1">
+    <div class="flex items-center gap-2">
+      <h3 class="truncate text-sm font-semibold">{name}</h3>
+      {
+        category && (
+          <span class="bg-muted rounded px-1.5 py-0.5 text-[10px]">
+            {category}
+          </span>
+        )
+      }
+    </div>
+    {
+      description && (
+        <p class="text-muted-foreground mt-1 line-clamp-2 text-xs">
+          {description}
+        </p>
+      )
+    }
+    <p class="text-muted-foreground mt-1 truncate text-[11px]">{domain}</p>
+  </div>
+</a>

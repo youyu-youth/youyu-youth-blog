@@ -67,6 +67,17 @@ interface FeaturesConfig {
   search?: "pagefind" | false;
 }
 
+interface DonateConfig {
+  /** Enable donate section on post pages */
+  enabled?: boolean;
+  /** Path to WeChat QR image in /public */
+  wechat?: string;
+  /** Path to Alipay QR image in /public */
+  alipay?: string;
+  /** Tip text shown above QR codes */
+  tip?: string;
+}
+
 interface SocialLink {
   /**
    * Must match an SVG filename in src/assets/icons/socials/.
@@ -106,6 +117,8 @@ interface AstroPaperConfig {
   socials?: SocialLink[];
   /** Share links shown on post detail pages */
   shareLinks?: ShareLink[];
+  /** Donate / tip configuration */
+  donate?: DonateConfig;
 }
 
 type ResolvedSiteConfig = Required<
@@ -129,6 +142,7 @@ export interface ResolvedAstroPaperConfig {
   features: Required<FeaturesConfig>;
   socials: SocialLink[];
   shareLinks: ShareLink[];
+  donate: Required<DonateConfig>;
 }
 
 /**

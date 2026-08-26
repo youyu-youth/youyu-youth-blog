@@ -1,0 +1,38 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import ProjectCard from "@/components/projects/ProjectCard.astro";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+
+const projects = await getCollection("projects", ({ data }) => !data.draft);
+const sorted = projects.sort(
+  (a, b) => b.data.pubDatetime.getTime() - a.data.pubDatetime.getTime()
+);
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
+---
+
+<Layout title={`${t.pages.projectsTitle} | ${config.site.title}`}>
+  <Header />
+  <Breadcrumb />
+  <Main pageTitle={t.pages.projectsTitle} pageDesc={t.pages.projectsDesc}>
+    {
+      sorted.length === 0 ? (
+        <p class="text-muted-foreground">暂无项目</p>
+      ) : (
+        <ul class="grid gap-4 sm:grid-cols-2">
+          {sorted.map(p => (
+            <ProjectCard {...p} />
+          ))}
+        </ul>
+      )
+    }
+  </Main>
+  <Footer />
+</Layout>

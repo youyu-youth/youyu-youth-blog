@@ -1,0 +1,98 @@
+---
+import config from "@/config";
+import { useTranslations } from "@/i18n";
+import { getAssetPath } from "@/utils/withBase";
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
+const { donate } = config;
+const wechat = getAssetPath(donate.wechat.replace(/^\//, ""));
+const alipay = getAssetPath(donate.alipay.replace(/^\//, ""));
+---
+
+{
+  donate.enabled && (
+    <section class="border-border bg-card mt-8 rounded-lg border p-6 text-center">
+      <h3 class="font-semibold">{t.donate.title}</h3>
+      <p class="text-muted-foreground mt-1 text-sm">
+        {donate.tip || t.donate.tip}
+      </p>
+      <button
+        id="donate-btn"
+        class="bg-accent text-accent-foreground mt-4 rounded-full px-5 py-1.5 text-sm font-medium hover:opacity-90"
+      >
+        {t.donate.title}
+      </button>
+
+      <dialog
+        id="donate-dialog"
+        class="bg-card text-foreground open:animate-in m-auto w-[90vw] max-w-md rounded-xl p-0 shadow-xl backdrop:bg-black/50"
+        aria-label={t.donate.title}
+      >
+        <div class="p-6">
+          <div class="flex items-start justify-between">
+            <h4 class="font-semibold">{t.donate.title}</h4>
+            <button
+              id="donate-close"
+              class="text-muted-foreground hover:text-foreground ml-4 text-xl leading-none"
+              aria-label={t.donate.close}
+            >
+              ×
+            </button>
+          </div>
+          <p class="text-muted-foreground mt-1 text-xs">
+            {donate.tip || t.donate.tip}
+          </p>
+          <div class="mt-4 grid grid-cols-2 gap-4">
+            <div class="text-center">
+              <img
+                src={wechat}
+                alt={t.donate.wechat}
+                class="mx-auto w-40 rounded border bg-white p-2"
+                loading="lazy"
+              />
+              <p class="mt-2 text-xs font-medium">{t.donate.wechat}</p>
+            </div>
+            <div class="text-center">
+              <img
+                src={alipay}
+                alt={t.donate.alipay}
+                class="mx-auto w-40 rounded border bg-white p-2"
+                loading="lazy"
+              />
+              <p class="mt-2 text-xs font-medium">{t.donate.alipay}</p>
+            </div>
+          </div>
+        </div>
+      </dialog>
+    </section>
+  )
+}
+
+<script>
+  function initDonate() {
+    const btn = document.getElementById(
+      "donate-btn"
+    ) as HTMLButtonElement | null;
+    const dialog = document.getElementById(
+      "donate-dialog"
+    ) as HTMLDialogElement | null;
+    const close = document.getElementById("donate-close");
+    if (!btn || !dialog) return;
+    btn.addEventListener("click", () => dialog.showModal());
+    close?.addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", e => {
+      const rect = dialog.getBoundingClientRect();
+      if (
+        e.clientX < rect.left ||
+        e.clientX > rect.right ||
+        e.clientY < rect.top ||
+        e.clientY > rect.bottom
+      ) {
+        dialog.close();
+      }
+    });
+  }
+  initDonate();
+  document.addEventListener("astro:after-swap", initDonate);
+</script>

@@ -5,6 +5,12 @@ export interface UIStrings {
     home: string;
     posts: string;
     tags: string;
+    categories: string;
+    projects: string;
+    bookmarks: string;
+    albums: string;
+    skills: string;
+    tools: string;
     about: string;
     archives: string;
     search: string;
@@ -59,6 +65,26 @@ export interface UIStrings {
 
     searchTitle: string;
     searchDesc: string;
+
+    categoriesTitle: string;
+    categoriesDesc: string;
+    categoryTitle: string;
+    categoryDesc: string;
+
+    projectsTitle: string;
+    projectsDesc: string;
+
+    bookmarksTitle: string;
+    bookmarksDesc: string;
+
+    albumsTitle: string;
+    albumsDesc: string;
+
+    skillsTitle: string;
+    skillsDesc: string;
+
+    toolsTitle: string;
+    toolsDesc: string;
   };
   a11y: {
     skipToContent: string;
@@ -76,5 +102,45 @@ export interface UIStrings {
     title: string;
     message: string;
     goHome: string;
+  };
+  donate: {
+    title: string;
+    tip: string;
+    wechat: string;
+    alipay: string;
+    close: string;
+  };
+  bookmarks: {
+    searchPlaceholder: string;
+    allCategories: string;
+    count: string;
+    importTip: string;
+  };
+  albums: {
+    count: string;
+    empty: string;
+  };
+  skills: {
+    years: string;
+    level: string;
+  };
+  tools: {
+    visit: string;
+  };
+  projects: {
+    visitDemo: string;
+    viewCode: string;
+    techStack: string;
+    statusShipped: string;
+    statusBuilding: string;
+    statusArchived: string;
+  };
+  categories: {
+    count: string;
+    allPosts: string;
+  };
+  sideNav: {
+    title: string;
+    explore: string;
   };
 }

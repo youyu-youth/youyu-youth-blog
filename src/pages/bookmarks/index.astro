@@ -1,0 +1,127 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import BookmarkCard from "@/components/bookmarks/BookmarkCard.astro";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+import bookmarks from "@/data/bookmarks.json";
+import { tplStr } from "@/i18n";
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
+
+const categories = [
+  ...new Set(bookmarks.map(b => b.category).filter(Boolean)),
+] as string[];
+---
+
+<Layout title={`${t.pages.bookmarksTitle} | ${config.site.title}`}>
+  <Header />
+  <Breadcrumb />
+  <Main pageTitle={t.pages.bookmarksTitle} pageDesc={t.pages.bookmarksDesc}>
+    <p class="text-muted-foreground mb-4 text-xs">{t.bookmarks.importTip}</p>
+    <div id="bm-root">
+      <div
+        class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+      >
+        <div class="flex flex-wrap gap-2">
+          <button
+            data-filter="all"
+            class="bm-filter bg-accent text-accent-foreground rounded-full px-3 py-1 text-xs font-medium"
+          >
+            {t.bookmarks.allCategories}
+          </button>
+          {
+            categories.map(cat => (
+              <button
+                data-filter={cat}
+                class="bm-filter border-border hover:bg-muted rounded-full border px-3 py-1 text-xs"
+              >
+                {cat}
+              </button>
+            ))
+          }
+        </div>
+        <input
+          id="bm-search"
+          type="search"
+          placeholder={t.bookmarks.searchPlaceholder}
+          class="border-border bg-background w-full rounded-md border px-3 py-1.5 text-sm sm:w-64"
+        />
+      </div>
+      <p id="bm-count" class="text-muted-foreground mb-3 text-xs">
+        {tplStr(t.bookmarks.count, { n: bookmarks.length })}
+      </p>
+      <ul id="bm-grid" class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          bookmarks.map(b => (
+            <li
+              data-category={b.category}
+              data-search={`${b.title} ${b.description} ${b.url} ${b.tags?.join(" ")}`.toLowerCase()}
+            >
+              <BookmarkCard {...b} />
+            </li>
+          ))
+        }
+      </ul>
+      <p
+        id="bm-empty"
+        class="text-muted-foreground hidden py-8 text-center text-sm"
+      >
+        {t.a11y.noResults}
+      </p>
+    </div>
+  </Main>
+  <Footer />
+</Layout>
+
+<script>
+  function initBookmarks() {
+    const search = document.getElementById(
+      "bm-search"
+    ) as HTMLInputElement | null;
+    const grid = document.getElementById("bm-grid");
+    const empty = document.getElementById("bm-empty");
+    const count = document.getElementById("bm-count");
+    const btns = document.querySelectorAll<HTMLButtonElement>(".bm-filter");
+    if (!grid || !search) return;
+    const items = Array.from(grid.querySelectorAll<HTMLLIElement>("li"));
+    let activeCat = "all";
+
+    function apply() {
+      const q = search!.value.trim().toLowerCase();
+      let visible = 0;
+      items.forEach(li => {
+        const catMatch =
+          activeCat === "all" || li.dataset.category === activeCat;
+        const searchText = li.dataset.search || "";
+        const qMatch = !q || searchText.includes(q);
+        const show = catMatch && qMatch;
+        li.style.display = show ? "" : "none";
+        if (show) visible++;
+      });
+      if (count) count.textContent = `${visible} 个收藏`;
+      if (empty) empty.classList.toggle("hidden", visible !== 0);
+    }
+
+    btns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        activeCat = btn.dataset.filter || "all";
+        btns.forEach(b => {
+          b.classList.remove("bg-accent", "text-accent-foreground");
+          b.classList.add("border", "border-border");
+        });
+        btn.classList.add("bg-accent", "text-accent-foreground");
+        btn.classList.remove("border", "border-border");
+        apply();
+      });
+    });
+
+    search.addEventListener("input", apply);
+  }
+  initBookmarks();
+  document.addEventListener("astro:after-swap", initBookmarks);
+</script>

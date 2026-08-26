@@ -42,10 +42,21 @@ const rssHref = getRelativeLocaleUrl(config.site.lang, "rss.xml");
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Font -->
+    <!-- Font: Astro-managed (Google Sans Code + Noto Serif SC) -->
     <Font
       cssVariable="--font-google-sans-code"
       preload={[{ subset: "latin", weight: 400, style: "normal" }]}
+    />
+    <Font
+      cssVariable="--font-noto-serif"
+      preload={[{ subset: "chinese-simplified", weight: 400, style: "normal" }]}
+    />
+    <!-- LXGW WenKai TC via Google Fonts CDN (avoids Astro build-time fetch for large CJK) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&display=swap"
+      rel="stylesheet"
     />
 
     <!-- Primary meta -->

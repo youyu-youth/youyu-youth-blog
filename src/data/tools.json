@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Excalidraw",
+    "url": "https://excalidraw.com",
+    "description": "手绘风格在线白板",
+    "category": "设计",
+    "icon": "https://excalidraw.com/favicon.ico"
+  },
+  {
+    "name": "Carbon",
+    "url": "https://carbon.now.sh",
+    "description": "代码截图美化工具",
+    "category": "开发",
+    "icon": "https://carbon.now.sh/favicon.ico"
+  },
+  {
+    "name": "TinyPNG",
+    "url": "https://tinypng.com",
+    "description": "在线图片压缩",
+    "category": "工具",
+    "icon": "https://tinypng.com/favicon.ico"
+  },
+  {
+    "name": "Regex101",
+    "url": "https://regex101.com",
+    "description": "正则表达式在线测试",
+    "category": "开发",
+    "icon": "https://regex101.com/favicon.ico"
+  },
+  {
+    "name": "Figma",
+    "url": "https://figma.com",
+    "description": "协作式界面设计工具",
+    "category": "设计",
+    "icon": "https://figma.com/favicon.ico"
+  },
+  {
+    "name": "Vercel",
+    "url": "https://vercel.com",
+    "description": "前端应用部署平台",
+    "category": "部署",
+    "icon": "https://vercel.com/favicon.ico"
+  }
+]

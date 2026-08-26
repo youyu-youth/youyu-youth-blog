@@ -6,6 +6,12 @@ export default {
     home: "Home",
     posts: "Posts",
     tags: "Tags",
+    categories: "Categories",
+    projects: "Projects",
+    bookmarks: "Bookmarks",
+    albums: "Albums",
+    skills: "Skills",
+    tools: "Tools",
     about: "About",
     archives: "Archives",
     search: "Search",
@@ -58,6 +64,27 @@ export default {
 
     searchTitle: "Search",
     searchDesc: "Search any article ...",
+
+    categoriesTitle: "Categories",
+    categoriesDesc: "Browse posts by category.",
+
+    categoryTitle: "Category",
+    categoryDesc: "All posts in this category",
+
+    projectsTitle: "Projects",
+    projectsDesc: "My works and open-source projects.",
+
+    bookmarksTitle: "Bookmarks",
+    bookmarksDesc: "Curated links and resources.",
+
+    albumsTitle: "Albums",
+    albumsDesc: "Moments captured in light.",
+
+    skillsTitle: "Skills",
+    skillsDesc: "Tech stack and tools I use.",
+
+    toolsTitle: "Tools",
+    toolsDesc: "Useful tools and resources.",
   },
   a11y: {
     skipToContent: "Skip to content",
@@ -75,5 +102,45 @@ export default {
     title: "404 Not Found",
     message: "Page Not Found",
     goHome: "Go back home",
+  },
+  donate: {
+    title: "Buy me a coffee",
+    tip: "If this post helped you, consider supporting",
+    wechat: "WeChat",
+    alipay: "Alipay",
+    close: "Close",
+  },
+  bookmarks: {
+    searchPlaceholder: "Search bookmarks…",
+    allCategories: "All",
+    count: "{{n}} bookmarks",
+    importTip: "Import via `pnpm bookmarks:import <html>`",
+  },
+  albums: {
+    count: "{{n}} photos",
+    empty: "No photos",
+  },
+  skills: {
+    years: "{{n}} years",
+    level: "Level",
+  },
+  tools: {
+    visit: "Visit",
+  },
+  projects: {
+    visitDemo: "Demo",
+    viewCode: "Code",
+    techStack: "Stack",
+    statusShipped: "Shipped",
+    statusBuilding: "Building",
+    statusArchived: "Archived",
+  },
+  categories: {
+    count: "{{n}} posts",
+    allPosts: "All posts",
+  },
+  sideNav: {
+    title: "Explore",
+    explore: "Explore",
   },
 } satisfies UIStrings;

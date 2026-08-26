@@ -175,14 +175,14 @@ export const GET: APIRoute = async ({ props, url }) => {
         {
           name: "Google Sans Code",
           data: regularData,
-          weight: 400,
-          style: "normal",
+          weight: 400 as const,
+          style: "normal" as const,
         },
         {
           name: "Google Sans Code",
           data: boldData,
-          weight: 700,
-          style: "normal",
+          weight: 700 as const,
+          style: "normal" as const,
         },
       ],
     }

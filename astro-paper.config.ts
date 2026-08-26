@@ -42,4 +42,10 @@ export default defineAstroPaperConfig({
     { name: "pinterest", url: "https://pinterest.com/pin/create/button/?url=" },
     { name: "mail",     url: "mailto:?subject=See%20this%20post&body=" },
   ],
+  donate: {
+    enabled: true,
+    wechat: "/qr/wechat-placeholder.svg",
+    alipay: "/qr/alipay-placeholder.svg",
+    tip: "如果觉得文章有帮助，欢迎打赏支持",
+  },
 });

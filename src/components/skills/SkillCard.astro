@@ -1,0 +1,40 @@
+---
+type Props = {
+  name: string;
+  icon?: string;
+  level: number;
+  years?: number;
+  desc?: string;
+};
+
+const { name, level, years, desc } = Astro.props;
+const clamped = Math.max(0, Math.min(5, level));
+---
+
+<div class="border-border bg-card flex flex-col gap-2 rounded-lg border p-4">
+  <div class="flex items-center justify-between">
+    <h3 class="font-semibold">{name}</h3>
+    {
+      years !== undefined && (
+        <span class="text-muted-foreground text-xs">{years} 年</span>
+      )
+    }
+  </div>
+  {desc && <p class="text-muted-foreground line-clamp-2 text-xs">{desc}</p>}
+  <div
+    class="mt-1 flex items-center gap-1"
+    aria-label={`level ${clamped} of 5`}
+  >
+    {
+      Array.from({ length: 5 }).map((_, i) => (
+        <span
+          class:list={[
+            "h-2 w-8 rounded-full",
+            i < clamped ? "bg-accent" : "bg-muted",
+          ]}
+        />
+      ))
+    }
+    <span class="text-muted-foreground ml-1 text-xs">{clamped}/5</span>
+  </div>
+</div>

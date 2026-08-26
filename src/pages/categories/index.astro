@@ -1,0 +1,46 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import { getUniqueCategories } from "@/utils/getUniqueCategories";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import IconHash from "@/assets/icons/IconHash.svg";
+
+const posts = await getCollection("posts", ({ data }) => !data.draft);
+const categories = getUniqueCategories(posts);
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
+---
+
+<Layout title={`${t.pages.categoriesTitle} | ${config.site.title}`}>
+  <Header />
+
+  <Breadcrumb />
+
+  <Main pageTitle={t.pages.categoriesTitle} pageDesc={t.pages.categoriesDesc}>
+    <ul class="flex flex-wrap gap-6">
+      {
+        categories.map(({ category, categoryName }) => (
+          <li>
+            <a
+              href={getRelativeLocaleUrl(locale, `categories/${category}/`)}
+              transition:name={category}
+              class="border-foreground hover:border-accent hover:text-accent focus-visible:text-accent flex items-center gap-0.5 border-b-2 border-dashed text-lg hover:-mt-0.5 focus-visible:border-none"
+            >
+              <IconHash class="size-5 opacity-80" />
+              {categoryName}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </Main>
+
+  <Footer />
+</Layout>

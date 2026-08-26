@@ -8,7 +8,10 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-deco: var(--deco);
-  --font-app: var(--font-google-sans-code);
+  --font-app: var(--font-noto-serif);
+  --font-heading: "LXGW WenKai TC", var(--font-noto-serif), serif;
+  --font-wenkai: "LXGW WenKai TC", var(--font-noto-serif), serif;
+  --font-mono: var(--font-google-sans-code);
 }
 
 /*

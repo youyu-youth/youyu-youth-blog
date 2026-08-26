@@ -1,0 +1,55 @@
+---
+import { Image } from "astro:assets";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import config from "@/config";
+import type { CollectionEntry } from "astro:content";
+import { useTranslations } from "@/i18n";
+import { tplStr } from "@/i18n";
+
+type Props = CollectionEntry<"albums">;
+const { id, data } = Astro.props;
+const { title, description, cover, pubDatetime, photos } = data;
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
+---
+
+<a
+  href={getRelativeLocaleUrl(locale, `albums/${id}/`)}
+  class="border-border bg-card group block overflow-hidden rounded-lg border transition hover:shadow-sm"
+>
+  {
+    cover && typeof cover === "object" && "src" in cover ? (
+      <Image
+        src={cover}
+        alt={title}
+        widths={[400, 800]}
+        sizes="(max-width:768px) 100vw, 400px"
+        class="aspect-[4/3] w-full object-cover transition group-hover:scale-[1.02]"
+      />
+    ) : cover && typeof cover === "string" ? (
+      <img
+        src={cover}
+        alt={title}
+        class="aspect-[4/3] w-full object-cover transition group-hover:scale-[1.02]"
+        loading="lazy"
+      />
+    ) : (
+      <div class="bg-muted aspect-[4/3] w-full" />
+    )
+  }
+  <div class="p-3">
+    <h3 class="leading-tight font-semibold">{title}</h3>
+    {
+      description && (
+        <p class="text-muted-foreground mt-1 line-clamp-2 text-xs">
+          {description}
+        </p>
+      )
+    }
+    <p class="text-muted-foreground mt-2 text-xs">
+      {pubDatetime.toLocaleDateString(locale)} · {
+        tplStr(t.albums.count, { n: photos.length })
+      }
+    </p>
+  </div>
+</a>
