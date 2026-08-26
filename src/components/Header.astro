@@ -6,6 +6,7 @@ import IconArchive from "@/assets/icons/IconArchive.svg";
 import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
 import IconSearch from "@/assets/icons/IconSearch.svg";
 import IconPalette from "@/assets/icons/IconPalette.svg";
+import IconPhoto from "@/assets/icons/IconPhoto.svg";
 import IconLanguage from "@/assets/icons/IconLanguage.svg";
 import IconMoon from "@/assets/icons/IconMoon.svg";
 import IconX from "@/assets/icons/IconX.svg";
@@ -55,10 +56,10 @@ const languageSwitchUrl = getRelativeLocaleUrl(
 </a>
 
 <header
-  class="app-layout flex flex-col items-center justify-between sm:flex-row"
+  class="flex w-full flex-col items-center justify-between bg-background sm:flex-row"
 >
   <div
-    class="border-border bg-background relative flex w-full items-baseline justify-between border-b py-4 sm:items-center sm:py-6"
+    class="app-layout relative flex w-full items-baseline justify-between py-4 sm:items-center sm:py-6"
   >
     <a
       href={getRelativeLocaleUrl(locale, "")}
@@ -182,6 +183,20 @@ const languageSwitchUrl = getRelativeLocaleUrl(
               class="size-6 sm:absolute sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2"
             />
             <span data-palette-label class="sm:sr-only"> default </span>
+          </button>
+        </li>
+        <li class="col-span-1 flex items-center justify-center">
+          <button
+            id="bg-btn"
+            class="focus-outline hover:[&>svg]:stroke-accent relative flex size-full items-center justify-center gap-1 p-4 sm:size-8 sm:p-0"
+            title="切换背景"
+            aria-label="none"
+            aria-live="polite"
+          >
+            <IconPhoto
+              class="size-6 sm:absolute sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2"
+            />
+            <span data-bg-label class="sm:sr-only">无背景</span>
           </button>
         </li>
         {

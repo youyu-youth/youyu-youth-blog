@@ -14,6 +14,65 @@
   --font-mono: var(--font-google-sans-code);
 }
 
+/* Global background image layer */
+html {
+  background-color: var(--background);
+}
+#bg-layer {
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+#bg-layer[data-show="true"] {
+  opacity: 1;
+}
+#bg-layer #bg-image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+#bg-layer #bg-overlay {
+  background: var(--bg-overlay);
+}
+[data-bg="none"] body {
+  background-color: var(--background);
+}
+[data-bg]:not([data-bg="none"]) body {
+  background-color: transparent !important;
+}
+/* Header is fully transparent when a background image is active (light & dark unified) */
+[data-bg]:not([data-bg="none"]) header {
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+[data-bg]:not([data-bg="none"]) header > div {
+  background-color: transparent !important;
+  border: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+[data-bg]:not([data-bg="none"]) #skip-to-content {
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+@media (max-width: 1024px) {
+  #bg-layer #bg-image {
+    background-attachment: scroll;
+  }
+  #bg-layer {
+    backdrop-filter: none !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #bg-layer {
+    transition: none;
+  }
+}
+
 /*
  * Colour palettes. "Mode" (light/dark via data-theme) and "palette"
  * (via data-palette) are orthogonal: each palette defines its own
@@ -34,6 +93,7 @@
   --muted-foreground: #6b7280;
   --border: #ece9e9;
   --deco: var(--accent);
+  --bg-overlay: color-mix(in srgb, var(--background) 82%, transparent);
 }
 
 /* Dark values */
@@ -47,6 +107,7 @@
   --muted-foreground: #afb9ca;
   --border: #ab4b08;
   --deco: var(--accent);
+  --bg-overlay: color-mix(in srgb, var(--background) 68%, transparent);
 }
 
 /* ===== pixel palette（像素绿，首页参考图配色）===== */
@@ -61,6 +122,7 @@
   --muted-foreground: #5d6d50;
   --border: #c6d3ae;
   --deco: #7a9b58;
+  --bg-overlay: color-mix(in srgb, var(--background) 80%, transparent);
 }
 
 /* Dark values */
@@ -73,4 +135,5 @@
   --muted-foreground: #77896a;
   --border: #263726;
   --deco: #b9d88a;
+  --bg-overlay: color-mix(in srgb, var(--background) 72%, transparent);
 }

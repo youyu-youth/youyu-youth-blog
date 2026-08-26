@@ -6,6 +6,7 @@ import { resolveDefaultOgImagePath } from "@/utils/resolveDefaultOgImagePath";
 import { getAssetPath } from "@/utils/withBase";
 import config from "@/config";
 import "@/styles/global.css";
+import { BG_IMAGES } from "@/utils/backgrounds";
 
 type Props = {
   title?: string;
@@ -105,10 +106,10 @@ const rssHref = getRelativeLocaleUrl(config.site.lang, "rss.xml");
     }
 
     <!--
-      Inline FOUC-prevention script: sets data-theme and data-palette on
+      Inline FOUC-prevention script: sets data-theme, data-palette and data-bg on
       <html> before the browser paints. Runs synchronously, no defer/async.
     -->
-    <script is:inline>
+    <script is:inline data-astro-rerun define:vars={{ bgImages: BG_IMAGES }}>
       (function () {
         const stored = localStorage.getItem("theme");
         const prefersDark = window.matchMedia(
@@ -116,12 +117,18 @@ const rssHref = getRelativeLocaleUrl(config.site.lang, "rss.xml");
         ).matches;
         const theme = stored ?? (prefersDark ? "dark" : "light");
         const palette = localStorage.getItem("palette") ?? "default";
+        const bg = localStorage.getItem("bg") ?? "none";
         const root = document.firstElementChild;
         root?.setAttribute("data-theme", theme);
         root?.setAttribute("data-palette", palette);
+        root?.setAttribute("data-bg", bg);
         root?.classList.toggle("dark", theme === "dark");
+        const src = bgImages[bg];
+        if (src) {
+          document.documentElement.style.setProperty("--bg-image", `url("${src}")`);
+        }
         // Expose values so theme.ts can skip re-detection.
-        window.__theme = { value: theme, palette: palette };
+        window.__theme = { value: theme, palette: palette, bg: bg };
       })();
     </script>
 
@@ -130,9 +137,36 @@ const rssHref = getRelativeLocaleUrl(config.site.lang, "rss.xml");
   <body
     class="bg-background font-app text-foreground selection:bg-accent/75 selection:text-accent-foreground flex min-h-svh flex-col"
   >
+    <!-- Global background image layer -->
+    <div
+      id="bg-layer"
+      class="pointer-events-none fixed inset-0 -z-10 hidden"
+      aria-hidden="true"
+    >
+      <div id="bg-image" class="absolute inset-0"></div>
+      <div id="bg-overlay" class="absolute inset-0"></div>
+    </div>
     <slot />
     <script>
       import "@/scripts/theme";
+    </script>
+    <script is:inline data-astro-rerun define:vars={{ bgImages: BG_IMAGES }}>
+      // Fallback: ensure bg-layer reflects data-bg even if theme.ts not yet executed (e.g., no-JS flicker handled above)
+      (function () {
+        const bg = document.documentElement.getAttribute("data-bg") ?? "none";
+        const layer = document.getElementById("bg-layer");
+        const img = document.getElementById("bg-image");
+        if (!layer || !img) return;
+        const src = bgImages[bg];
+        if (!src) {
+          layer.setAttribute("data-show", "false");
+          layer.classList.add("hidden");
+        } else {
+          img.style.backgroundImage = `url("${src}")`;
+          layer.classList.remove("hidden");
+          requestAnimationFrame(() => layer.setAttribute("data-show", "true"));
+        }
+      })();
     </script>
   </body>
 </html>
