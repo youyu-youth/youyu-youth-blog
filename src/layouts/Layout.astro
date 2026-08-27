@@ -7,6 +7,8 @@ import { getAssetPath } from "@/utils/withBase";
 import config from "@/config";
 import "@/styles/global.css";
 import { BG_IMAGES } from "@/utils/backgrounds";
+import ThemePicker from "@/components/ThemePicker.astro";
+import { PALETTES } from "@/utils/palettes";
 
 type Props = {
   title?: string;
@@ -109,14 +111,19 @@ const rssHref = getRelativeLocaleUrl(config.site.lang, "rss.xml");
       Inline FOUC-prevention script: sets data-theme, data-palette and data-bg on
       <html> before the browser paints. Runs synchronously, no defer/async.
     -->
-    <script is:inline data-astro-rerun define:vars={{ bgImages: BG_IMAGES }}>
+    <script
+      is:inline
+      data-astro-rerun
+      define:vars={{ bgImages: BG_IMAGES, validPalettes: PALETTES }}
+    >
       (function () {
         const stored = localStorage.getItem("theme");
         const prefersDark = window.matchMedia(
           "(prefers-color-scheme: dark)"
         ).matches;
         const theme = stored ?? (prefersDark ? "dark" : "light");
-        const palette = localStorage.getItem("palette") ?? "default";
+        let palette = localStorage.getItem("palette") ?? "default";
+        if (!validPalettes.includes(palette)) palette = "default";
         const bg = localStorage.getItem("bg") ?? "none";
         const root = document.firstElementChild;
         root?.setAttribute("data-theme", theme);
@@ -147,6 +154,7 @@ const rssHref = getRelativeLocaleUrl(config.site.lang, "rss.xml");
       <div id="bg-overlay" class="absolute inset-0"></div>
     </div>
     <slot />
+    <ThemePicker />
     <script>
       import "@/scripts/theme";
     </script>

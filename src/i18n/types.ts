@@ -98,6 +98,12 @@ export interface UIStrings {
     goToPreviousPage: string;
     goToNextPage: string;
   };
+  themePicker: {
+    title: string;
+    searchPlaceholder: string;
+    noResults: string;
+    current: string;
+  };
   notFound: {
     title: string;
     message: string;

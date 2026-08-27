@@ -137,3 +137,291 @@ html {
   --deco: #b9d88a;
   --bg-overlay: color-mix(in srgb, var(--background) 72%, transparent);
 }
+
+/* ===== dark-plus palette (VS Code Dark+) ===== */
+[data-palette="dark-plus"][data-theme="light"] {
+  --background: #ffffff;
+  --foreground: #000000;
+  --accent: #007acc;
+  --accent-foreground: #ffffff;
+  --muted: #f3f3f3;
+  --muted-foreground: #6e7681;
+  --border: #e5e7eb;
+  --deco: #007acc;
+  --bg-overlay: color-mix(in srgb, var(--background) 82%, transparent);
+}
+[data-palette="dark-plus"][data-theme="dark"] {
+  --background: #1e1e1e;
+  --foreground: #d4d4d4;
+  --accent: #569cd6;
+  --accent-foreground: #1e1e1e;
+  --muted: #252526;
+  --muted-foreground: #858585;
+  --border: #3c3c3c;
+  --deco: #4ec9b0;
+  --bg-overlay: color-mix(in srgb, var(--background) 70%, transparent);
+}
+
+/* ===== dracula palette ===== */
+[data-palette="dracula"][data-theme="light"] {
+  --background: #f8f8ff;
+  --foreground: #282a36;
+  --accent: #6250b8;
+  --accent-foreground: #ffffff;
+  --muted: #eae6ff;
+  --muted-foreground: #6272a4;
+  --border: #d6cfff;
+  --deco: #bd93f9;
+  --bg-overlay: color-mix(in srgb, var(--background) 82%, transparent);
+}
+[data-palette="dracula"][data-theme="dark"] {
+  --background: #282a36;
+  --foreground: #f8f8f2;
+  --accent: #bd93f9;
+  --accent-foreground: #282a36;
+  --muted: #44475a;
+  --muted-foreground: #b8beca;
+  --border: #6272a4;
+  --deco: #ff79c6;
+  --bg-overlay: color-mix(in srgb, var(--background) 70%, transparent);
+}
+
+/* ===== everforest palette ===== */
+[data-palette="everforest"][data-theme="light"] {
+  --background: #fffbe8;
+  --foreground: #5c6a72;
+  --accent: #8da101;
+  --accent-foreground: #ffffff;
+  --muted: #f0ead2;
+  --muted-foreground: #7a8478;
+  --border: #e6dfc3;
+  --deco: #a7c080;
+  --bg-overlay: color-mix(in srgb, var(--background) 82%, transparent);
+}
+[data-palette="everforest"][data-theme="dark"] {
+  --background: #2b3339;
+  --foreground: #d3c6aa;
+  --accent: #a7c080;
+  --accent-foreground: #2b3339;
+  --muted: #3a4540;
+  --muted-foreground: #9da9a0;
+  --border: #4a5550;
+  --deco: #7fbbb3;
+  --bg-overlay: color-mix(in srgb, var(--background) 70%, transparent);
+}
+
+/* ===== github-dark palette ===== */
+[data-palette="github-dark"][data-theme="light"] {
+  --background: #ffffff;
+  --foreground: #1f2328;
+  --accent: #0969da;
+  --accent-foreground: #ffffff;
+  --muted: #f6f8fa;
+  --muted-foreground: #656d76;
+  --border: #d0d7de;
+  --deco: #0550ae;
+  --bg-overlay: color-mix(in srgb, var(--background) 82%, transparent);
+}
+[data-palette="github-dark"][data-theme="dark"] {
+  --background: #0d1117;
+  --foreground: #e6edf3;
+  --accent: #58a6ff;
+  --accent-foreground: #0d1117;
+  --muted: #21262d;
+  --muted-foreground: #7d8590;
+  --border: #30363d;
+  --deco: #1f6feb;
+  --bg-overlay: color-mix(in srgb, var(--background) 70%, transparent);
+}
+
+/* ===== github-light palette (dimmed dark variant) ===== */
+[data-palette="github-light"][data-theme="light"] {
+  --background: #ffffff;
+  --foreground: #24292f;
+  --accent: #0969da;
+  --accent-foreground: #ffffff;
+  --muted: #f6f8fa;
+  --muted-foreground: #656d76;
+  --border: #d0d7de;
+  --deco: #0969da;
+  --bg-overlay: color-mix(in srgb, var(--background) 82%, transparent);
+}
+[data-palette="github-light"][data-theme="dark"] {
+  --background: #24292e;
+  --foreground: #e6edf3;
+  --accent: #58a6ff;
+  --accent-foreground: #24292e;
+  --muted: #2d333b;
+  --muted-foreground: #9098a0;
+  --border: #373e47;
+  --deco: #79c0ff;
+  --bg-overlay: color-mix(in srgb, var(--background) 70%, transparent);
+}
+
+/* ===== gruvbox-dark palette ===== */
+[data-palette="gruvbox-dark"][data-theme="light"] {
+  --background: #fbf1c7;
+  --foreground: #3c3836;
+  --accent: #b57614;
+  --accent-foreground: #fbf1c7;
+  --muted: #ebdbb2;
+  --muted-foreground: #7c6f64;
+  --border: #d5c4a1;
+  --deco: #af3a03;
+  --bg-overlay: color-mix(in srgb, var(--background) 82%, transparent);
+}
+[data-palette="gruvbox-dark"][data-theme="dark"] {
+  --background: #282828;
+  --foreground: #ebdbb2;
+  --accent: #fabd2f;
+  --accent-foreground: #282828;
+  --muted: #3c3836;
+  --muted-foreground: #a89984;
+  --border: #504945;
+  --deco: #fe8019;
+  --bg-overlay: color-mix(in srgb, var(--background) 70%, transparent);
+}
+
+/* ===== gruvbox-light palette ===== */
+[data-palette="gruvbox-light"][data-theme="light"] {
+  --background: #fbf1c7;
+  --foreground: #3c3836;
+  --accent: #9d0006;
+  --accent-foreground: #fbf1c7;
+  --muted: #ebdbb2;
+  --muted-foreground: #7c6f64;
+  --border: #d5c4a1;
+  --deco: #79740e;
+  --bg-overlay: color-mix(in srgb, var(--background) 82%, transparent);
+}
+[data-palette="gruvbox-light"][data-theme="dark"] {
+  --background: #282828;
+  --foreground: #ebdbb2;
+  --accent: #fb4934;
+  --accent-foreground: #282828;
+  --muted: #3c3836;
+  --muted-foreground: #a89984;
+  --border: #504945;
+  --deco: #fabd2f;
+  --bg-overlay: color-mix(in srgb, var(--background) 70%, transparent);
+}
+
+/* ===== nord palette ===== */
+[data-palette="nord"][data-theme="light"] {
+  --background: #eceff4;
+  --foreground: #2e3440;
+  --accent: #5e81ac;
+  --accent-foreground: #eceff4;
+  --muted: #e5e9f0;
+  --muted-foreground: #616e88;
+  --border: #d8dee9;
+  --deco: #88c0d0;
+  --bg-overlay: color-mix(in srgb, var(--background) 82%, transparent);
+}
+[data-palette="nord"][data-theme="dark"] {
+  --background: #2e3440;
+  --foreground: #eceff4;
+  --accent: #88c0d0;
+  --accent-foreground: #2e3440;
+  --muted: #3b4252;
+  --muted-foreground: #a3adc0;
+  --border: #4c566a;
+  --deco: #81a1c1;
+  --bg-overlay: color-mix(in srgb, var(--background) 70%, transparent);
+}
+
+/* ===== catppuccin palette ===== */
+[data-palette="catppuccin"][data-theme="light"] {
+  --background: #eff1f5;
+  --foreground: #4c4f69;
+  --accent: #8839ef;
+  --accent-foreground: #eff1f5;
+  --muted: #e6e9ef;
+  --muted-foreground: #8c8fa1;
+  --border: #ccd0da;
+  --deco: #ea76cb;
+  --bg-overlay: color-mix(in srgb, var(--background) 82%, transparent);
+}
+[data-palette="catppuccin"][data-theme="dark"] {
+  --background: #1e1e2e;
+  --foreground: #cdd6f4;
+  --accent: #cba6f7;
+  --accent-foreground: #1e1e2e;
+  --muted: #313244;
+  --muted-foreground: #a6adc8;
+  --border: #45475a;
+  --deco: #f5c2e7;
+  --bg-overlay: color-mix(in srgb, var(--background) 70%, transparent);
+}
+
+/* ===== tokyo-night palette ===== */
+[data-palette="tokyo-night"][data-theme="light"] {
+  --background: #d5d6db;
+  --foreground: #343b58;
+  --accent: #34548a;
+  --accent-foreground: #d5d6db;
+  --muted: #cbccd1;
+  --muted-foreground: #5a638c;
+  --border: #b4b5b9;
+  --deco: #7aa2f7;
+  --bg-overlay: color-mix(in srgb, var(--background) 82%, transparent);
+}
+[data-palette="tokyo-night"][data-theme="dark"] {
+  --background: #1a1b26;
+  --foreground: #c0caf5;
+  --accent: #7aa2f7;
+  --accent-foreground: #1a1b26;
+  --muted: #24283b;
+  --muted-foreground: #a9b1d6;
+  --border: #414868;
+  --deco: #bb9af7;
+  --bg-overlay: color-mix(in srgb, var(--background) 70%, transparent);
+}
+
+/* ===== kanagawa palette ===== */
+[data-palette="kanagawa"][data-theme="light"] {
+  --background: #f2ecbc;
+  --foreground: #545464;
+  --accent: #624c83;
+  --accent-foreground: #f2ecbc;
+  --muted: #e7dba0;
+  --muted-foreground: #717c7c;
+  --border: #dcd7ba;
+  --deco: #938aa9;
+  --bg-overlay: color-mix(in srgb, var(--background) 82%, transparent);
+}
+[data-palette="kanagawa"][data-theme="dark"] {
+  --background: #1f1f28;
+  --foreground: #dcd7ba;
+  --accent: #7e9cd8;
+  --accent-foreground: #1f1f28;
+  --muted: #2a2a37;
+  --muted-foreground: #938aa9;
+  --border: #363646;
+  --deco: #957fb8;
+  --bg-overlay: color-mix(in srgb, var(--background) 70%, transparent);
+}
+
+/* ===== one-dark palette ===== */
+[data-palette="one-dark"][data-theme="light"] {
+  --background: #fafafa;
+  --foreground: #383a42;
+  --accent: #4078f2;
+  --accent-foreground: #fafafa;
+  --muted: #eaeaeb;
+  --muted-foreground: #a0a1a7;
+  --border: #e5e5e6;
+  --deco: #a626a4;
+  --bg-overlay: color-mix(in srgb, var(--background) 82%, transparent);
+}
+[data-palette="one-dark"][data-theme="dark"] {
+  --background: #282c34;
+  --foreground: #abb2bf;
+  --accent: #61afef;
+  --accent-foreground: #282c34;
+  --muted: #3e4451;
+  --muted-foreground: #828997;
+  --border: #3e4451;
+  --deco: #c678dd;
+  --bg-overlay: color-mix(in srgb, var(--background) 70%, transparent);
+}

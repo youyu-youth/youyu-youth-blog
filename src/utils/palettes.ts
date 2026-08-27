@@ -5,7 +5,22 @@
  * `src/styles/theme.css` ([data-palette="<id>"][data-theme="light"|"dark"]).
  * To add a palette: add a CSS block + one entry here.
  */
-export const PALETTES = ["default", "pixel"] as const;
+export const PALETTES = [
+  "default",
+  "pixel",
+  "dark-plus",
+  "dracula",
+  "everforest",
+  "github-dark",
+  "github-light",
+  "gruvbox-dark",
+  "gruvbox-light",
+  "nord",
+  "catppuccin",
+  "tokyo-night",
+  "kanagawa",
+  "one-dark",
+] as const;
 
 export type Palette = (typeof PALETTES)[number];
 
@@ -15,6 +30,18 @@ export const DEFAULT_PALETTE: Palette = "default";
 export const PALETTE_LABELS: Record<Palette, string> = {
   default: "Default",
   pixel: "Pixel",
+  "dark-plus": "Dark Plus",
+  dracula: "Dracula",
+  everforest: "Everforest",
+  "github-dark": "Github Dark",
+  "github-light": "Github Light",
+  "gruvbox-dark": "Gruvbox Dark",
+  "gruvbox-light": "Gruvbox Light",
+  nord: "Nord",
+  catppuccin: "Catppuccin",
+  "tokyo-night": "Tokyo Night",
+  kanagawa: "Kanagawa",
+  "one-dark": "One Dark Pro",
 };
 
 export function isPalette(value: unknown): value is Palette {

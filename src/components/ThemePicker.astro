@@ -1,0 +1,153 @@
+---
+import { PALETTES, PALETTE_LABELS } from "@/utils/palettes";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
+---
+
+<dialog
+  id="palette-dialog"
+  aria-labelledby="palette-dialog-title"
+  class="palette-dialog m-0 max-h-none max-w-none bg-transparent p-0 backdrop:bg-transparent open:flex open:items-center open:justify-center"
+>
+  <div
+    id="palette-dialog-backdrop"
+    class="fixed inset-0 bg-black/45 backdrop-blur-[6px] supports-[backdrop-filter]:bg-black/30"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div
+    role="document"
+    class="palette-dialog-panel relative z-10 flex max-h-[min(68vh,520px)] w-[min(92vw,420px)] flex-col overflow-hidden rounded-xl border border-border bg-background shadow-2xl"
+  >
+    <!-- Search header -->
+    <div class="shrink-0 border-b border-border bg-muted/40 px-3 py-2.5">
+      <label for="palette-search" class="sr-only"
+        >{t.themePicker.searchPlaceholder}</label
+      >
+      <input
+        id="palette-search"
+        type="search"
+        autocomplete="off"
+        spellcheck="false"
+        placeholder={t.themePicker.searchPlaceholder}
+        class="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+      />
+    </div>
+
+    <!-- Title for a11y -->
+    <h2 id="palette-dialog-title" class="sr-only">{t.themePicker.title}</h2>
+
+    <!-- List -->
+    <div class="min-h-0 flex-1 overflow-y-auto overscroll-contain p-1.5">
+      <ul
+        id="palette-list"
+        role="listbox"
+        aria-label={t.themePicker.title}
+        class="flex flex-col gap-0.5"
+      >
+        {
+          PALETTES.map(palette => (
+            <li role="presentation">
+              <button
+                type="button"
+                role="option"
+                data-palette-option={palette}
+                aria-selected="false"
+                class="palette-option group flex w-full items-center justify-center gap-2 rounded-md px-3 py-2.5 text-center font-mono text-[13px] leading-none tracking-wide text-accent transition-colors hover:bg-muted hover:text-foreground focus-visible:bg-muted focus-visible:text-foreground focus-visible:outline-none aria-selected:bg-muted aria-selected:text-foreground"
+              >
+                <span class="palette-dot hidden size-2 shrink-0 rounded-full border border-border bg-accent group-aria-selected:block" aria-hidden="true" />
+                <span class="truncate">{PALETTE_LABELS[palette]}</span>
+                <span
+                  data-current-badge
+                  class="hidden shrink-0 rounded bg-accent px-1.5 py-0.5 text-[10px] font-sans tracking-normal text-accent-foreground group-aria-selected:inline-block"
+                >
+                  {t.themePicker.current}
+                </span>
+              </button>
+            </li>
+          ))
+        }
+      </ul>
+      <p
+        id="palette-empty"
+        class="hidden px-4 py-8 text-center text-sm text-muted-foreground"
+        role="status"
+        aria-live="polite"
+      >
+        {t.themePicker.noResults}
+      </p>
+    </div>
+
+    <!-- Footer hint -->
+    <div
+      class="hidden shrink-0 items-center justify-between border-t border-border bg-muted/30 px-3 py-2 text-[11px] text-muted-foreground sm:flex"
+    >
+      <span>↑↓ Navigate</span>
+      <span>↵ Select</span>
+      <span>Esc Close</span>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  .palette-dialog {
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    border: none;
+  }
+  .palette-dialog:not([open]) {
+    display: none;
+  }
+  .palette-dialog[open] {
+    animation: palette-fade 140ms ease-out;
+  }
+  .palette-dialog-panel {
+    animation: palette-scale 160ms ease-out;
+  }
+  .palette-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .palette-dialog[open],
+    .palette-dialog-panel {
+      animation: none;
+    }
+  }
+  @keyframes palette-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes palette-scale {
+    from {
+      opacity: 0;
+      transform: translateY(6px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  /* fallback for browsers without dialog::backdrop support */
+  @supports not selector(::backdrop) {
+    .palette-dialog[open] #palette-dialog-backdrop {
+      display: block;
+    }
+  }
+  /* scrollbar styling */
+  #palette-list {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-muted) transparent;
+  }
+</style>
