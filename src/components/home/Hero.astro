@@ -4,7 +4,6 @@ import type { ImageMetadata } from "astro";
 import IconMapPin from "@/assets/icons/IconMapPin.svg";
 import IconUser from "@/assets/icons/IconUser.svg";
 import IconGitHub from "@/assets/icons/socials/github.svg";
-import PixelDecor from "./PixelDecor.astro";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
 
@@ -30,7 +29,6 @@ const github = socials.find(({ name }) => name.toLowerCase() === "github");
   id="hero"
   class="border-border relative border-b pt-12 pb-10 sm:pt-16 sm:pb-14"
 >
-  <PixelDecor />
 
   <div class="flex flex-col items-center text-center">
     {
@@ -59,10 +57,6 @@ const github = socials.find(({ name }) => name.toLowerCase() === "github");
     <p class="text-muted-foreground mt-4 text-base sm:text-lg">
       {t.home.heroTagline}
     </p>
-
-    <span
-      aria-hidden="true"
-      class="text-deco mt-6 block size-2 rotate-45 bg-current"></span>
 
     <ul
       class="text-muted-foreground mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm"
