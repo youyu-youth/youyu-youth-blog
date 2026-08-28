@@ -5,36 +5,127 @@ type Props = {
   level: number;
   years?: number;
   desc?: string;
+  variant?: "accent" | "inverted" | "muted" | "card";
 };
 
-const { name, level, years, desc } = Astro.props;
+const { name, level, years, desc, variant = "card" } = Astro.props;
 const clamped = Math.max(0, Math.min(5, level));
+
+const variantClasses: Record<NonNullable<Props["variant"]>, string> = {
+  accent: "bg-accent text-accent-foreground border-accent",
+  inverted: "bg-foreground text-background border-foreground",
+  muted: "bg-muted text-foreground border-transparent",
+  card: "bg-card text-foreground border-border",
+};
+
+const trackClass: Record<NonNullable<Props["variant"]>, string> = {
+  accent: "bg-accent-foreground/20",
+  inverted: "bg-background/15",
+  muted: "bg-border",
+  card: "bg-muted",
+};
+
+const fillClass: Record<NonNullable<Props["variant"]>, string> = {
+  accent: "bg-accent-foreground",
+  inverted: "bg-background",
+  muted: "bg-accent",
+  card: "bg-accent",
+};
+
+const yearsClass: Record<NonNullable<Props["variant"]>, string> = {
+  accent: "text-accent-foreground/80",
+  inverted: "text-background/70",
+  muted: "text-muted-foreground",
+  card: "text-muted-foreground",
+};
+
+const descClass: Record<NonNullable<Props["variant"]>, string> = {
+  accent: "text-accent-foreground/85",
+  inverted: "text-background/75",
+  muted: "text-muted-foreground",
+  card: "text-muted-foreground",
+};
 ---
 
-<div class="border-border bg-card flex flex-col gap-2 rounded-lg border p-4">
-  <div class="flex items-center justify-between">
-    <h3 class="font-semibold">{name}</h3>
+<div
+  class:list={[
+    "flex flex-col rounded-lg border p-5 transition duration-300 ease-[0.16,1,0.3,1] hover:-translate-y-0.5 active:scale-[0.98] active:translate-y-0",
+    "min-h-[148px]",
+    variantClasses[variant],
+  ]}
+>
+  <div class="flex items-start justify-between gap-3">
+    <h3
+      class="font-heading text-[17px] leading-none font-semibold tracking-tight"
+    >
+      {name}
+    </h3>
     {
       years !== undefined && (
-        <span class="text-muted-foreground text-xs">{years} 年</span>
+        <span
+          class:list={[
+            "shrink-0 font-mono text-xs tabular-nums",
+            yearsClass[variant],
+          ]}
+        >
+          {years} 年
+        </span>
       )
     }
   </div>
-  {desc && <p class="text-muted-foreground line-clamp-2 text-xs">{desc}</p>}
-  <div
-    class="mt-1 flex items-center gap-1"
-    aria-label={`level ${clamped} of 5`}
-  >
-    {
-      Array.from({ length: 5 }).map((_, i) => (
-        <span
-          class:list={[
-            "h-2 w-8 rounded-full",
-            i < clamped ? "bg-accent" : "bg-muted",
-          ]}
-        />
-      ))
-    }
-    <span class="text-muted-foreground ml-1 text-xs">{clamped}/5</span>
+  {
+    desc && (
+      <p class:list={["mt-2 line-clamp-2 text-sm leading-relaxed", descClass[variant]]}>
+        {desc}
+      </p>
+    )
+  }
+  <div class="mt-auto pt-4">
+    <div class="flex items-center justify-between">
+      <span
+        class:list={[
+          "font-mono text-xs",
+          variant === "accent" || variant === "inverted"
+            ? yearsClass[variant]
+            : "text-muted-foreground",
+        ]}
+      >
+        Level
+      </span>
+      <span
+        class:list={[
+          "font-mono text-xs tabular-nums",
+          yearsClass[variant],
+        ]}
+      >
+        {clamped}/5
+      </span>
+    </div>
+    <div
+      class="mt-2 flex items-center gap-1.5"
+      aria-label={`level ${clamped} of 5`}
+      role="img"
+    >
+      {
+        Array.from({ length: 5 }).map((_, i) => (
+          <span
+            class:list={[
+              "h-1.5 flex-1 rounded-full transition-colors",
+              i < clamped ? fillClass[variant] : trackClass[variant],
+            ]}
+          />
+        ))
+      }
+    </div>
   </div>
 </div>
+<style>
+  @media (prefers-reduced-motion: reduce) {
+    div {
+      transition: none !important;
+    }
+    div:hover {
+      transform: none !important;
+    }
+  }
+</style>
