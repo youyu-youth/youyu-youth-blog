@@ -1,0 +1,108 @@
+---
+import BookmarkCard from "./BookmarkCard.astro";
+import type { TreeNode } from "@/utils/buildBookmarkTree";
+
+type Props = {
+  node: TreeNode;
+  variantIndex?: number;
+};
+
+const { node, variantIndex = 0 } = Astro.props;
+
+const variants = ["card", "card", "muted", "accent", "inverted", "card"] as const;
+function pickVariant(i: number) {
+  return variants[i % variants.length];
+}
+---
+
+<section
+  data-section-path={node.pathStr}
+  class="scroll-mt-6"
+  aria-labelledby={`bm-sec-${node.pathStr.replace(/\//g, "-")}`}
+>
+  <div class="flex items-baseline justify-between gap-4">
+    <h3 id={`bm-sec-${node.pathStr.replace(/\//g, "-")}`} class="font-heading text-sm font-semibold tracking-tight">
+      {node.path.join(" / ")}
+      <span class="ml-2 font-mono text-xs font-normal tabular-nums text-muted-foreground">({node.totalCount})</span>
+    </h3>
+    {node.children.length > 0 && (
+      <span class="hidden font-mono text-xs text-muted-foreground sm:inline">
+        {node.children.length} 子文件夹
+      </span>
+    )}
+  </div>
+
+  {node.bookmarks.length > 0 ? (
+    <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+      {
+        node.bookmarks.map((b, i) => (
+          <li data-search={`${b.title} ${b.description} ${b.url} ${b.tags?.join(" ")} ${b.categoryPath.join(" ")}`.toLowerCase()} data-path={node.pathStr}>
+            <BookmarkCard {...b} variant={pickVariant(variantIndex + i)} />
+          </li>
+        ))
+      }
+    </ul>
+  ) : node.children.length === 0 ? (
+    <div class="mt-3 rounded-lg border border-dashed border-border bg-card p-6 text-center">
+      <p class="font-mono text-xs text-muted-foreground">空文件夹</p>
+      <p class="mt-1 text-xs text-muted-foreground">该收藏文件夹暂无直接收藏，展开子文件夹查看</p>
+    </div>
+  ) : null}
+
+  {node.children.length > 0 && (
+    <div class="mt-4 space-y-6">
+      {
+        node.children.map((child, ci) => (
+          <div data-subsection-path={child.pathStr} class="rounded-lg border border-border bg-card/50 p-3 sm:p-4">
+            <div class="flex items-center justify-between gap-3">
+              <h4 class="flex items-center gap-2 text-sm font-medium">
+                <span class="size-1.5 rounded-full bg-accent" />
+                {child.name}
+                <span class="font-mono text-xs font-normal tabular-nums text-muted-foreground">({child.totalCount})</span>
+              </h4>
+              <span class="font-mono text-xs text-muted-foreground">{child.directCount} 直接 · {child.children.length} 子级</span>
+            </div>
+            {child.bookmarks.length > 0 ? (
+              <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+                {child.bookmarks.map((b, bi) => (
+                  <li data-search={`${b.title} ${b.description} ${b.url} ${b.tags?.join(" ")} ${b.categoryPath.join(" ")}`.toLowerCase()} data-path={child.pathStr}>
+                    <BookmarkCard {...b} variant={pickVariant(ci + bi)} />
+                  </li>
+                ))}
+              </ul>
+            ) : child.children.length === 0 ? (
+              <div class="mt-3 rounded-md border border-dashed border-border bg-background p-4 text-center">
+                <p class="font-mono text-xs text-muted-foreground">空文件夹</p>
+              </div>
+            ) : null}
+            {child.children.length > 0 && (
+              <div class="mt-4 grid gap-3">
+                {child.children.map(leaf => (
+                  <div data-leaf-path={leaf.pathStr} class="rounded-md border border-border bg-background p-3">
+                    <div class="flex items-center justify-between">
+                      <h5 class="text-xs font-medium">{leaf.path.join(" / ")}</h5>
+                      <span class="font-mono text-xs tabular-nums text-muted-foreground">{leaf.totalCount}</span>
+                    </div>
+                    {leaf.bookmarks.length > 0 ? (
+                      <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+                        {leaf.bookmarks.map((b, li) => (
+                          <li data-search={`${b.title} ${b.description} ${b.url} ${b.tags?.join(" ")} ${b.categoryPath.join(" ")}`.toLowerCase()} data-path={leaf.pathStr}>
+                            <BookmarkCard {...b} variant={pickVariant(li)} />
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <div class="mt-3 rounded border border-dashed border-border p-4 text-center">
+                        <p class="font-mono text-xs text-muted-foreground">空文件夹</p>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))
+      }
+    </div>
+  )}
+</section>

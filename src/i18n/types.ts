@@ -121,6 +121,15 @@ export interface UIStrings {
     allCategories: string;
     count: string;
     importTip: string;
+    allSubcategories: string;
+    emptyFolder: string;
+    showAll: string;
+    collapse: string;
+    expand: string;
+    folders: string;
+    bookmarksCount: string;
+    clearFilters: string;
+    breadcrumb: string;
   };
   albums: {
     count: string;

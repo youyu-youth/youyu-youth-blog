@@ -2,126 +2,459 @@
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
-import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
-import BookmarkCard from "@/components/bookmarks/BookmarkCard.astro";
+import BookmarkSection from "@/components/bookmarks/BookmarkSection.astro";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
 import bookmarks from "@/data/bookmarks.json";
-import { tplStr } from "@/i18n";
+import folders from "@/data/bookmarkFolders.json";
+import { buildBookmarkTree } from "@/utils/buildBookmarkTree";
+import { getRelativeLocaleUrl } from "astro:i18n";
 
 const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
 
-const categories = [
-  ...new Set(bookmarks.map(b => b.category).filter(Boolean)),
-] as string[];
+const tree = buildBookmarkTree(bookmarks as any, folders as any);
+const total = bookmarks.length;
+const totalFolders = folders.length;
+const topCount = tree.length;
+
+// first path as default active
+const defaultPath = tree[0]?.pathStr || "";
 ---
 
 <Layout title={`${t.pages.bookmarksTitle} | ${config.site.title}`}>
   <Header />
   <Breadcrumb />
-  <Main pageTitle={t.pages.bookmarksTitle} pageDesc={t.pages.bookmarksDesc}>
-    <p class="text-muted-foreground mb-4 text-xs">{t.bookmarks.importTip}</p>
-    <div id="bm-root">
-      <div
-        class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
-      >
-        <div class="flex flex-wrap gap-2">
-          <button
-            data-filter="all"
-            class="bm-filter bg-accent text-accent-foreground rounded-full px-3 py-1 text-xs font-medium"
-          >
-            {t.bookmarks.allCategories}
+  <main id="main-content" class="app-layout pb-10">
+    <!-- Hero -->
+    <section class="grid grid-cols-1 gap-8 border-b border-border pb-8 lg:grid-cols-12 lg:gap-6 lg:pb-10">
+      <div class="flex flex-col gap-3 lg:col-span-7">
+        <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+          {locale === "zh" ? "收藏索引" : "Bookmarks index"}
+        </p>
+        <h1 class="font-heading text-4xl font-semibold leading-none tracking-tighter lg:text-[44px]">
+          {t.pages.bookmarksTitle}
+        </h1>
+        <p class="max-w-[52ch] text-[15px] leading-relaxed text-muted-foreground">
+          {t.pages.bookmarksDesc}
+          <span class="hidden sm:inline">
+            {locale === "zh" ? "按收藏夹层级浏览，先选分类再看子文件夹与网站，避免一屏拉爆。" : "Browse by folder hierarchy — pick a category, then subfolders, then sites."}
+          </span>
+        </p>
+        <p class="text-xs text-muted-foreground">{t.bookmarks.importTip}</p>
+      </div>
+      <div class="grid grid-cols-3 gap-3 lg:col-span-5">
+        <div class="rounded-lg border border-border bg-card p-4">
+          <p class="font-mono text-xs text-muted-foreground">{locale === "zh" ? "总数" : "Bookmarks"}</p>
+          <p class="font-heading mt-2 text-3xl font-semibold leading-none tracking-tighter">{total}</p>
+          <p class="mt-1 font-mono text-xs text-muted-foreground">{locale === "zh" ? "个收藏" : "collected"}</p>
+        </div>
+        <div class="rounded-lg border border-border bg-card p-4">
+          <p class="font-mono text-xs text-muted-foreground">{locale === "zh" ? "文件夹" : "Folders"}</p>
+          <p class="font-heading mt-2 text-3xl font-semibold leading-none tracking-tighter">{totalFolders}</p>
+          <p class="mt-1 font-mono text-xs text-muted-foreground">{locale === "zh" ? "个目录" : "groups"}</p>
+        </div>
+        <div class="rounded-lg bg-accent p-4 text-accent-foreground">
+          <p class="font-mono text-xs text-accent-foreground/80">{locale === "zh" ? "顶级" : "Top"}</p>
+          <p class="font-heading mt-2 text-3xl font-semibold leading-none tracking-tighter">{topCount}</p>
+          <p class="mt-1 font-mono text-xs text-accent-foreground/80">{locale === "zh" ? "个分类" : "categories"}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Toolbar -->
+    <section class="mt-8">
+      <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+        <div class="flex items-center gap-2">
+          <button id="bm-drawer-toggle" class="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 text-xs font-medium lg:hidden">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+            {t.bookmarks.folders}
           </button>
+          <p id="bm-count" class="font-mono text-xs text-muted-foreground">{total} {locale === "zh" ? "个收藏" : "bookmarks"}</p>
+          <span id="bm-active-crumb" class="hidden font-mono text-xs text-muted-foreground sm:inline"></span>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="relative w-full sm:w-72">
+            <input
+              id="bm-search"
+              type="search"
+              placeholder={t.bookmarks.searchPlaceholder}
+              class="border-border bg-background w-full rounded-lg border py-2 pl-9 pr-3 text-sm placeholder:text-muted-foreground focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/15"
+            />
+            <svg class="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5 21 21"></path>
+            </svg>
+          </div>
+          <button id="bm-clear" class="hidden shrink-0 rounded-full bg-accent px-3 py-2 text-xs font-medium text-accent-foreground">{t.bookmarks.clearFilters}</button>
+        </div>
+      </div>
+
+      <!-- sub pills -->
+      <div id="bm-sub-pills" class="mt-3 hidden flex-wrap gap-2"></div>
+    </section>
+
+    <!-- Main grid: tree + sections -->
+    <div class="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12">
+      <!-- Tree sidebar -->
+      <aside id="bm-sidebar" class="hidden lg:col-span-4 lg:block xl:col-span-3">
+        <div class="sticky top-20 rounded-lg border border-border bg-card p-3">
+          <div class="mb-2 flex items-center justify-between px-1">
+            <h2 class="font-mono text-xs font-medium tracking-widest text-muted-foreground">{locale === "zh" ? "目录" : "Folders"}</h2>
+            <span class="font-mono text-xs tabular-nums text-muted-foreground">{totalFolders}</span>
+          </div>
+          <div class="max-h-[60vh] overflow-y-auto pr-1">
+            <nav class="space-y-1" aria-label="bookmark folders">
+              {
+                tree.map(node => {
+                  const hasChildren = node.children.length > 0;
+                  return (
+                    <div class="space-y-1">
+                      <button
+                        data-tree-path={node.pathStr}
+                        data-level="1"
+                        class="bm-tree-btn group flex w-full items-center justify-between rounded-md px-2.5 py-1.5 text-left text-sm transition"
+                      >
+                        <span class="flex min-w-0 items-center gap-2">
+                          <span class="bm-tree-icon flex size-6 shrink-0 items-center justify-center rounded-md border text-[11px]"> 
+                            {hasChildren ? "▸" : "•"}
+                          </span>
+                          <span class="truncate font-medium">{node.name}</span>
+                        </span>
+                        <span class="ml-2 shrink-0 rounded-full px-1.5 py-0.5 text-[11px] font-mono tabular-nums">
+                          {node.totalCount}
+                        </span>
+                      </button>
+                      {hasChildren && (
+                        <div class="bm-tree-children ml-3 space-y-1 border-l border-border pl-3" data-tree-children={node.pathStr}>
+                          {node.children.map(child => {
+                            const childHas = child.children.length > 0;
+                            return (
+                              <div class="space-y-1">
+                                <button
+                                  data-tree-path={child.pathStr}
+                                  data-level="2"
+                                  class="bm-tree-btn flex w-full items-center justify-between rounded-md px-2 py-1 text-left text-xs transition"
+                                >
+                                  <span class="flex items-center gap-1.5 truncate">
+                                    {childHas && <span class="bm-tree-icon text-[10px] opacity-60">▸</span>}
+                                    <span class="truncate">{child.name}</span>
+                                  </span>
+                                  <span class="ml-2 shrink-0 font-mono text-[11px] tabular-nums opacity-60">{child.totalCount}</span>
+                                </button>
+                                {childHas && (
+                                  <div class="bm-tree-children ml-3 space-y-1 border-l border-border pl-2" data-tree-children={child.pathStr}>
+                                    {child.children.map(leaf => (
+                                      <button
+                                        data-tree-path={leaf.pathStr}
+                                        data-level="3"
+                                        class="bm-tree-btn flex w-full items-center justify-between rounded px-2 py-1 text-left text-xs transition"
+                                      >
+                                        <span class="truncate">{leaf.name}</span>
+                                        <span class="ml-2 font-mono text-[11px] tabular-nums opacity-60">{leaf.totalCount}</span>
+                                      </button>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })
+              }
+            </nav>
+          </div>
+          <div class="mt-3 border-t border-border pt-3">
+            <a href={getRelativeLocaleUrl(locale, "tools")} class="inline-flex w-full items-center justify-center rounded-md border border-border bg-card px-3 py-1.5 text-xs font-medium hover:bg-muted">
+              {locale === "zh" ? "查看工具" : "View tools"}
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Sections -->
+      <div class="lg:col-span-8 xl:col-span-9">
+        <div id="bm-sections" class="space-y-8">
           {
-            categories.map(cat => (
-              <button
-                data-filter={cat}
-                class="bm-filter border-border hover:bg-muted rounded-full border px-3 py-1 text-xs"
-              >
-                {cat}
-              </button>
+            tree.map((node, i) => (
+              <div data-section-path={node.pathStr} class="bm-section">
+                <BookmarkSection node={node} variantIndex={i * 2} />
+              </div>
             ))
           }
         </div>
-        <input
-          id="bm-search"
-          type="search"
-          placeholder={t.bookmarks.searchPlaceholder}
-          class="border-border bg-background w-full rounded-md border px-3 py-1.5 text-sm sm:w-64"
-        />
+
+        <div id="bm-empty" class="hidden rounded-lg border border-dashed border-border bg-card py-12 text-center">
+          <p class="font-heading text-sm font-medium">{t.a11y.noResults}</p>
+          <p class="mt-1 font-mono text-xs text-muted-foreground">
+            {locale === "zh" ? "试试其他关键词或切换分类" : "Try another keyword or category"}
+          </p>
+          <button id="bm-empty-reset" class="mt-4 inline-flex items-center rounded-full bg-accent px-4 py-1.5 text-xs font-medium text-accent-foreground">
+            {t.bookmarks.clearFilters}
+          </button>
+        </div>
       </div>
-      <p id="bm-count" class="text-muted-foreground mb-3 text-xs">
-        {tplStr(t.bookmarks.count, { n: bookmarks.length })}
-      </p>
-      <ul id="bm-grid" class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {
-          bookmarks.map(b => (
-            <li
-              data-category={b.category}
-              data-search={`${b.title} ${b.description} ${b.url} ${b.tags?.join(" ")}`.toLowerCase()}
-            >
-              <BookmarkCard {...b} />
-            </li>
-          ))
-        }
-      </ul>
-      <p
-        id="bm-empty"
-        class="text-muted-foreground hidden py-8 text-center text-sm"
-      >
-        {t.a11y.noResults}
-      </p>
     </div>
-  </Main>
+  </main>
   <Footer />
 </Layout>
 
-<script>
+<script is:inline define:vars={{ defaultPath }}>
   function initBookmarks() {
-    const search = document.getElementById(
-      "bm-search"
-    ) as HTMLInputElement | null;
-    const grid = document.getElementById("bm-grid");
-    const empty = document.getElementById("bm-empty");
+    const root = document.getElementById("bm-sections");
+    const sidebar = document.getElementById("bm-sidebar");
+    const search = document.getElementById("bm-search");
     const count = document.getElementById("bm-count");
-    const btns = document.querySelectorAll<HTMLButtonElement>(".bm-filter");
-    if (!grid || !search) return;
-    const items = Array.from(grid.querySelectorAll<HTMLLIElement>("li"));
-    let activeCat = "all";
+    const crumb = document.getElementById("bm-active-crumb");
+    const subPills = document.getElementById("bm-sub-pills");
+    const empty = document.getElementById("bm-empty");
+    const clearBtn = document.getElementById("bm-clear");
+    const emptyReset = document.getElementById("bm-empty-reset");
+    const drawerToggle = document.getElementById("bm-drawer-toggle");
+    if (!root || !search) return;
 
-    function apply() {
-      const q = search!.value.trim().toLowerCase();
-      let visible = 0;
-      items.forEach(li => {
-        const catMatch =
-          activeCat === "all" || li.dataset.category === activeCat;
-        const searchText = li.dataset.search || "";
-        const qMatch = !q || searchText.includes(q);
-        const show = catMatch && qMatch;
-        li.style.display = show ? "" : "none";
-        if (show) visible++;
+    const sections = Array.from(root.querySelectorAll(".bm-section"));
+    const treeBtns = Array.from(document.querySelectorAll(".bm-tree-btn"));
+
+    let activePath = defaultPath;
+    let searchQuery = "";
+
+    function updateTreeActive(path) {
+      treeBtns.forEach(btn => {
+        const p = btn.dataset.treePath || "";
+        const isActive = path === p || path.startsWith(p + "/");
+        const isExact = path === p;
+        // reset
+        btn.classList.remove("bg-accent", "text-accent-foreground", "bg-accent/10", "text-accent");
+        btn.classList.add("hover:bg-muted");
+        const icon = btn.querySelector(".bm-tree-icon");
+        // level based styling
+        const level = btn.dataset.level;
+        if (isExact) {
+          btn.classList.add("bg-accent", "text-accent-foreground");
+          btn.classList.remove("hover:bg-muted", "text-foreground", "text-muted-foreground");
+          if (icon) {
+            icon.classList.add("border-white/20", "bg-white/15");
+            icon.classList.remove("border-border", "bg-card");
+          }
+        } else if (isActive) {
+          if (level === "1") {
+            btn.classList.add("bg-accent/10", "text-accent");
+          } else {
+            btn.classList.add("bg-muted", "text-foreground");
+          }
+          btn.classList.remove("hover:bg-muted");
+        } else {
+          // default
+          if (level === "1") {
+            btn.classList.add("text-foreground");
+          } else {
+            btn.classList.add("text-muted-foreground");
+          }
+        }
+        // toggle children visibility
+        const childContainer = document.querySelector(`[data-tree-children="${CSS.escape(p)}"]`);
+        if (childContainer) {
+          if (isActive) childContainer.classList.remove("hidden");
+          else childContainer.classList.add("hidden");
+          // update chevron
+          if (icon) icon.textContent = isActive ? "▾" : "▸";
+        }
       });
-      if (count) count.textContent = `${visible} 个收藏`;
-      if (empty) empty.classList.toggle("hidden", visible !== 0);
     }
 
-    btns.forEach(btn => {
-      btn.addEventListener("click", () => {
-        activeCat = btn.dataset.filter || "all";
-        btns.forEach(b => {
-          b.classList.remove("bg-accent", "text-accent-foreground");
-          b.classList.add("border", "border-border");
+    function updateSubPills(path) {
+      if (!subPills) return;
+      // Simpler: show direct children of active path as pills, if any
+      const activeChildrenEl = document.querySelector(`[data-tree-children="${CSS.escape(path)}"]`);
+      let directChildren = [];
+      if (activeChildrenEl) {
+        directChildren = Array.from(activeChildrenEl.querySelectorAll(':scope > div > button[data-tree-path], :scope > button[data-tree-path]'));
+      }
+      if (directChildren.length > 0) {
+        subPills.classList.remove("hidden");
+        subPills.classList.add("flex");
+        subPills.innerHTML = "";
+        const allBtn = document.createElement("button");
+        allBtn.textContent = document.documentElement.lang === "en" ? "All" : "全部";
+        allBtn.dataset.subPath = path;
+        allBtn.className = "rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground";
+        allBtn.addEventListener("click", () => setActive(path));
+        subPills.appendChild(allBtn);
+        directChildren.forEach(btn => {
+          const p = btn.dataset.treePath;
+          const nameEl = btn.querySelector("span.truncate");
+          const name = nameEl ? nameEl.textContent.trim() : btn.textContent.trim().split("\n")[0].trim();
+          const pill = document.createElement("button");
+          pill.textContent = name;
+          pill.dataset.subPath = p;
+          pill.className = "rounded-full border border-border bg-card px-3 py-1 text-xs hover:bg-muted";
+          pill.addEventListener("click", () => setActive(p));
+          subPills.appendChild(pill);
         });
-        btn.classList.add("bg-accent", "text-accent-foreground");
-        btn.classList.remove("border", "border-border");
-        apply();
+      } else {
+        subPills.classList.add("hidden");
+        subPills.classList.remove("flex");
+        subPills.innerHTML = "";
+      }
+    }
+
+    function setActive(path) {
+      activePath = path;
+      // update tree
+      updateTreeActive(path);
+      updateSubPills(path);
+      // crumb
+      if (crumb) {
+        crumb.textContent = path ? " / " + path.replace(/\//g, " / ") : "";
+      }
+      applyFilter();
+      // close drawer on mobile after selection
+      if (window.innerWidth < 1024 && sidebar && !sidebar.classList.contains("hidden")) {
+        // keep as drawer toggle will hide
+      }
+    }
+
+    function applyFilter() {
+      const q = searchQuery.trim().toLowerCase();
+      const hasQuery = q.length > 0;
+      let visibleBookmarks = 0;
+      let visibleSections = 0;
+
+      sections.forEach(sec => {
+        const secPath = sec.dataset.sectionPath || "";
+        const isActiveBranch = !hasQuery && (activePath === secPath || activePath.startsWith(secPath + "/") || secPath.startsWith(activePath + "/") || activePath === "");
+        // When searching, we show sections that contain matches regardless of active
+        if (hasQuery) {
+          // need to check if any bookmark inside sec matches q
+          const items = Array.from(sec.querySelectorAll("li[data-search]"));
+          let secVisibleCount = 0;
+          items.forEach(li => {
+            const text = li.dataset.search || "";
+            const match = text.includes(q);
+            // also need to respect activePath? When searching, ignore active filter, show all matches
+            li.style.display = match ? "" : "none";
+            li.setAttribute("aria-hidden", match ? "false" : "true");
+            if (match) secVisibleCount++;
+          });
+          // hide/show subsections based on whether they have visible items
+          const subsections = Array.from(sec.querySelectorAll("[data-subsection-path], [data-leaf-path]"));
+          subsections.forEach(sub => {
+            const subItems = Array.from(sub.querySelectorAll("li[data-search]"));
+            const subVisible = subItems.some(li => li.style.display !== "none");
+            sub.style.display = subVisible ? "" : "none";
+          });
+          // sec visibility
+          const showSec = secVisibleCount > 0;
+          sec.style.display = showSec ? "" : "none";
+          if (showSec) visibleSections++;
+          visibleBookmarks += secVisibleCount;
+        } else {
+          // no query, show only active branch
+          const showSec = isActiveBranch;
+          sec.style.display = showSec ? "" : "none";
+          if (showSec) {
+            visibleSections++;
+            // show all bookmarks inside sec
+            const items = Array.from(sec.querySelectorAll("li[data-search]"));
+            items.forEach(li => {
+              li.style.display = "";
+              li.setAttribute("aria-hidden", "false");
+            });
+            // show subsections
+            const subsections = Array.from(sec.querySelectorAll("[data-subsection-path], [data-leaf-path]"));
+            subsections.forEach(sub => (sub.style.display = ""));
+            visibleBookmarks += items.length;
+          }
+        }
+      });
+
+      // count
+      if (count) {
+        const label = hasQuery
+          ? `${visibleBookmarks} ${document.documentElement.lang === "en" ? "matches" : "个匹配"}`
+          : `${visibleBookmarks} ${document.documentElement.lang === "en" ? "bookmarks" : "个收藏"}`;
+        count.textContent = label;
+      }
+      if (empty) {
+        const showEmpty = visibleBookmarks === 0;
+        empty.classList.toggle("hidden", !showEmpty);
+        const sectionsContainer = document.getElementById("bm-sections");
+        if (sectionsContainer) sectionsContainer.classList.toggle("hidden", showEmpty);
+      }
+      if (clearBtn) {
+        const showClear = hasQuery || activePath !== defaultPath;
+        clearBtn.classList.toggle("hidden", !showClear);
+      }
+      updateTreeActive(activePath);
+    }
+
+    // events
+    treeBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const p = btn.dataset.treePath || "";
+        setActive(p);
       });
     });
 
-    search.addEventListener("input", apply);
+    search.addEventListener("input", () => {
+      searchQuery = search.value;
+      applyFilter();
+    });
+
+    if (clearBtn) {
+      clearBtn.addEventListener("click", () => {
+        searchQuery = "";
+        search.value = "";
+        setActive(defaultPath);
+      });
+    }
+    if (emptyReset) {
+      emptyReset.addEventListener("click", () => {
+        searchQuery = "";
+        search.value = "";
+        setActive(defaultPath);
+      });
+    }
+    if (drawerToggle && sidebar) {
+      drawerToggle.addEventListener("click", () => {
+        sidebar.classList.toggle("hidden");
+        // when showing as drawer, make it overlay style on mobile
+        if (!sidebar.classList.contains("hidden")) {
+          sidebar.classList.add("fixed", "inset-0", "z-40", "bg-background/80", "backdrop-blur", "p-4", "overflow-auto");
+          sidebar.querySelector("div")?.classList.add("max-h-[80vh]");
+        } else {
+          sidebar.classList.remove("fixed", "inset-0", "z-40", "bg-background/80", "backdrop-blur", "p-4", "overflow-auto");
+        }
+      });
+      // close when clicking outside? simple
+      sidebar.addEventListener("click", e => {
+        if (e.target === sidebar) {
+          sidebar.classList.add("hidden");
+          sidebar.classList.remove("fixed", "inset-0", "z-40", "bg-background/80", "backdrop-blur", "p-4", "overflow-auto");
+        }
+      });
+    }
+
+    // init
+    setActive(defaultPath);
   }
+
   initBookmarks();
   document.addEventListener("astro:after-swap", initBookmarks);
 </script>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .bm-section {
+      animation: bmIn 0.45s both;
+    }
+    @keyframes bmIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  }
+</style>

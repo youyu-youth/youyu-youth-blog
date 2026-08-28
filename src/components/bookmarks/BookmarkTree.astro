@@ -1,0 +1,115 @@
+---
+import type { TreeNode } from "@/utils/buildBookmarkTree";
+
+type Props = {
+  nodes: TreeNode[];
+  activePath?: string;
+};
+
+const { nodes, activePath } = Astro.props;
+
+function isActive(pathStr: string, active?: string) {
+  if (!active) return false;
+  return active === pathStr || active.startsWith(pathStr + "/");
+}
+---
+
+<nav class="space-y-1" aria-label="bookmark folders">
+  {
+    nodes.map(node => {
+      const active = isActive(node.pathStr, activePath);
+      const hasChildren = node.children.length > 0;
+      return (
+        <div class="space-y-1">
+          <button
+            data-tree-path={node.pathStr}
+            class:list={[
+              "group flex w-full items-center justify-between rounded-md px-2.5 py-1.5 text-left text-sm transition",
+              active
+                ? "bg-accent text-accent-foreground"
+                : "hover:bg-muted text-foreground",
+            ]}
+            aria-expanded={hasChildren ? active : undefined}
+          >
+            <span class="flex min-w-0 items-center gap-2">
+              <span
+                class:list={[
+                  "flex size-6 shrink-0 items-center justify-center rounded-md border text-[11px]",
+                  active
+                    ? "border-white/20 bg-white/15 text-accent-foreground"
+                    : "border-border bg-card text-muted-foreground",
+                ]}
+              >
+                {hasChildren ? "▸" : "•"}
+              </span>
+              <span class="truncate font-medium">{node.name}</span>
+            </span>
+            <span
+              class:list={[
+                "ml-2 shrink-0 rounded-full px-1.5 py-0.5 text-[11px] font-mono tabular-nums",
+                active
+                  ? "bg-white/15 text-accent-foreground"
+                  : "bg-muted text-muted-foreground",
+              ]}
+            >
+              {node.totalCount}
+            </span>
+          </button>
+          {hasChildren && (
+            <div
+              class:list={["ml-3 space-y-1 border-l border-border pl-3", !active && "hidden"]}
+              data-tree-children={node.pathStr}
+            >
+              {node.children.map(child => {
+                const childActive = isActive(child.pathStr, activePath);
+                const childHasChildren = child.children.length > 0;
+                return (
+                  <div class="space-y-1">
+                    <button
+                      data-tree-path={child.pathStr}
+                      class:list={[
+                        "flex w-full items-center justify-between rounded-md px-2 py-1 text-left text-xs transition",
+                        childActive
+                          ? "bg-accent/10 text-accent font-medium"
+                          : "hover:bg-muted text-muted-foreground hover:text-foreground",
+                      ]}
+                    >
+                      <span class="flex items-center gap-1.5 truncate">
+                        {childHasChildren && (
+                          <span class="text-[10px] opacity-60">{childActive ? "▾" : "▸"}</span>
+                        )}
+                        <span class="truncate">{child.name}</span>
+                      </span>
+                      <span class="ml-2 shrink-0 font-mono text-[11px] tabular-nums opacity-60">
+                        {child.totalCount}
+                      </span>
+                    </button>
+                    {childHasChildren && (
+                      <div class:list={["ml-3 space-y-1 border-l border-border pl-2", !childActive && "hidden"]} data-tree-children={child.pathStr}>
+                        {child.children.map(leaf => {
+                          const leafActive = isActive(leaf.pathStr, activePath);
+                          return (
+                            <button
+                              data-tree-path={leaf.pathStr}
+                              class:list={[
+                                "flex w-full items-center justify-between rounded px-2 py-1 text-left text-xs transition",
+                                leafActive ? "bg-accent text-accent-foreground" : "hover:bg-muted text-muted-foreground hover:text-foreground",
+                              ]}
+                            >
+                              <span class="truncate">{leaf.name}</span>
+                              <span class="ml-2 font-mono text-[11px] tabular-nums opacity-60">{leaf.totalCount}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      );
+    })
+  }
+</nav>

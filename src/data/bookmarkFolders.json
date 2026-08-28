@@ -1,0 +1,1153 @@
+[
+  {
+    "name": "收藏夹栏",
+    "fullPath": [
+      "收藏夹栏"
+    ],
+    "fullPathStr": "收藏夹栏",
+    "strippedPath": [
+      "收藏夹栏"
+    ],
+    "strippedStr": "收藏夹栏",
+    "level": 1,
+    "addDate": "2023-06-30",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "idea操作",
+    "fullPath": [
+      "收藏夹栏",
+      "workpace",
+      "idea操作"
+    ],
+    "fullPathStr": "收藏夹栏/workpace/idea操作",
+    "strippedPath": [
+      "idea操作"
+    ],
+    "strippedStr": "idea操作",
+    "level": 1,
+    "addDate": "2024-11-11",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "nginx",
+    "fullPath": [
+      "收藏夹栏",
+      "workpace",
+      "nginx"
+    ],
+    "fullPathStr": "收藏夹栏/workpace/nginx",
+    "strippedPath": [
+      "nginx"
+    ],
+    "strippedStr": "nginx",
+    "level": 1,
+    "addDate": "2025-04-22",
+    "directCount": 6,
+    "isEmpty": false
+  },
+  {
+    "name": "官网技术",
+    "fullPath": [
+      "收藏夹栏",
+      "workpace",
+      "官网技术"
+    ],
+    "fullPathStr": "收藏夹栏/workpace/官网技术",
+    "strippedPath": [
+      "官网技术"
+    ],
+    "strippedStr": "官网技术",
+    "level": 1,
+    "addDate": "2025-04-22",
+    "directCount": 9,
+    "isEmpty": false
+  },
+  {
+    "name": "redis",
+    "fullPath": [
+      "收藏夹栏",
+      "workpace",
+      "官网技术",
+      "redis"
+    ],
+    "fullPathStr": "收藏夹栏/workpace/官网技术/redis",
+    "strippedPath": [
+      "官网技术",
+      "redis"
+    ],
+    "strippedStr": "官网技术/redis",
+    "level": 2,
+    "addDate": "2025-04-24",
+    "directCount": 9,
+    "isEmpty": false
+  },
+  {
+    "name": "mysql",
+    "fullPath": [
+      "收藏夹栏",
+      "workpace",
+      "官网技术",
+      "mysql"
+    ],
+    "fullPathStr": "收藏夹栏/workpace/官网技术/mysql",
+    "strippedPath": [
+      "官网技术",
+      "mysql"
+    ],
+    "strippedStr": "官网技术/mysql",
+    "level": 2,
+    "addDate": "2025-05-12",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "vue",
+    "fullPath": [
+      "收藏夹栏",
+      "workpace",
+      "官网技术",
+      "vue"
+    ],
+    "fullPathStr": "收藏夹栏/workpace/官网技术/vue",
+    "strippedPath": [
+      "官网技术",
+      "vue"
+    ],
+    "strippedStr": "官网技术/vue",
+    "level": 2,
+    "addDate": "2025-05-13",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "react",
+    "fullPath": [
+      "收藏夹栏",
+      "workpace",
+      "官网技术",
+      "react"
+    ],
+    "fullPathStr": "收藏夹栏/workpace/官网技术/react",
+    "strippedPath": [
+      "官网技术",
+      "react"
+    ],
+    "strippedStr": "官网技术/react",
+    "level": 2,
+    "addDate": "2025-05-13",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "axios",
+    "fullPath": [
+      "收藏夹栏",
+      "workpace",
+      "官网技术",
+      "axios"
+    ],
+    "fullPathStr": "收藏夹栏/workpace/官网技术/axios",
+    "strippedPath": [
+      "官网技术",
+      "axios"
+    ],
+    "strippedStr": "官网技术/axios",
+    "level": 2,
+    "addDate": "2025-04-22",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "安全框架",
+    "fullPath": [
+      "收藏夹栏",
+      "workpace",
+      "官网技术",
+      "安全框架"
+    ],
+    "fullPathStr": "收藏夹栏/workpace/官网技术/安全框架",
+    "strippedPath": [
+      "官网技术",
+      "安全框架"
+    ],
+    "strippedStr": "官网技术/安全框架",
+    "level": 2,
+    "addDate": "2025-05-20",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "前端ui框架",
+    "fullPath": [
+      "收藏夹栏",
+      "workpace",
+      "官网技术",
+      "前端ui框架"
+    ],
+    "fullPathStr": "收藏夹栏/workpace/官网技术/前端ui框架",
+    "strippedPath": [
+      "官网技术",
+      "前端ui框架"
+    ],
+    "strippedStr": "官网技术/前端ui框架",
+    "level": 2,
+    "addDate": "2025-05-24",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "ai",
+    "fullPath": [
+      "收藏夹栏",
+      "workpace",
+      "ai"
+    ],
+    "fullPathStr": "收藏夹栏/workpace/ai",
+    "strippedPath": [
+      "ai"
+    ],
+    "strippedStr": "ai",
+    "level": 1,
+    "addDate": "2025-04-22",
+    "directCount": 3,
+    "isEmpty": false
+  },
+  {
+    "name": "study",
+    "fullPath": [
+      "收藏夹栏",
+      "workpace",
+      "study"
+    ],
+    "fullPathStr": "收藏夹栏/workpace/study",
+    "strippedPath": [
+      "study"
+    ],
+    "strippedStr": "study",
+    "level": 1,
+    "addDate": "2025-04-22",
+    "directCount": 11,
+    "isEmpty": false
+  },
+  {
+    "name": "前端",
+    "fullPath": [
+      "收藏夹栏",
+      "workpace",
+      "study",
+      "前端"
+    ],
+    "fullPathStr": "收藏夹栏/workpace/study/前端",
+    "strippedPath": [
+      "study",
+      "前端"
+    ],
+    "strippedStr": "study/前端",
+    "level": 2,
+    "addDate": "2025-04-25",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "新建文件夹",
+    "fullPath": [
+      "收藏夹栏",
+      "workpace",
+      "study",
+      "前端",
+      "新建文件夹"
+    ],
+    "fullPathStr": "收藏夹栏/workpace/study/前端/新建文件夹",
+    "strippedPath": [
+      "study",
+      "前端",
+      "新建文件夹"
+    ],
+    "strippedStr": "study/前端/新建文件夹",
+    "level": 3,
+    "addDate": "2025-04-25",
+    "directCount": 0,
+    "isEmpty": true
+  },
+  {
+    "name": "javascript",
+    "fullPath": [
+      "收藏夹栏",
+      "workpace",
+      "study",
+      "前端",
+      "javascript"
+    ],
+    "fullPathStr": "收藏夹栏/workpace/study/前端/javascript",
+    "strippedPath": [
+      "study",
+      "前端",
+      "javascript"
+    ],
+    "strippedStr": "study/前端/javascript",
+    "level": 3,
+    "addDate": "2025-05-13",
+    "directCount": 2,
+    "isEmpty": false
+  },
+  {
+    "name": "mysql",
+    "fullPath": [
+      "收藏夹栏",
+      "workpace",
+      "study",
+      "mysql"
+    ],
+    "fullPathStr": "收藏夹栏/workpace/study/mysql",
+    "strippedPath": [
+      "study",
+      "mysql"
+    ],
+    "strippedStr": "study/mysql",
+    "level": 2,
+    "addDate": "2025-05-13",
+    "directCount": 2,
+    "isEmpty": false
+  },
+  {
+    "name": "spring",
+    "fullPath": [
+      "收藏夹栏",
+      "workpace",
+      "study",
+      "spring"
+    ],
+    "fullPathStr": "收藏夹栏/workpace/study/spring",
+    "strippedPath": [
+      "study",
+      "spring"
+    ],
+    "strippedStr": "study/spring",
+    "level": 2,
+    "addDate": "2025-05-13",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "工具",
+    "fullPath": [
+      "收藏夹栏",
+      "workpace",
+      "study",
+      "工具"
+    ],
+    "fullPathStr": "收藏夹栏/workpace/study/工具",
+    "strippedPath": [
+      "study",
+      "工具"
+    ],
+    "strippedStr": "study/工具",
+    "level": 2,
+    "addDate": "2025-05-14",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "项目网站",
+    "fullPath": [
+      "收藏夹栏",
+      "workpace",
+      "study",
+      "项目网站"
+    ],
+    "fullPathStr": "收藏夹栏/workpace/study/项目网站",
+    "strippedPath": [
+      "study",
+      "项目网站"
+    ],
+    "strippedStr": "study/项目网站",
+    "level": 2,
+    "addDate": "2025-05-17",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "资源库",
+    "fullPath": [
+      "收藏夹栏",
+      "workpace",
+      "资源库"
+    ],
+    "fullPathStr": "收藏夹栏/workpace/资源库",
+    "strippedPath": [
+      "资源库"
+    ],
+    "strippedStr": "资源库",
+    "level": 1,
+    "addDate": "2025-05-20",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "软考",
+    "fullPath": [
+      "收藏夹栏",
+      "workpace",
+      "软考"
+    ],
+    "fullPathStr": "收藏夹栏/workpace/软考",
+    "strippedPath": [
+      "软考"
+    ],
+    "strippedStr": "软考",
+    "level": 1,
+    "addDate": "2025-05-24",
+    "directCount": 3,
+    "isEmpty": false
+  },
+  {
+    "name": "书籍",
+    "fullPath": [
+      "收藏夹栏",
+      "workpace",
+      "书籍"
+    ],
+    "fullPathStr": "收藏夹栏/workpace/书籍",
+    "strippedPath": [
+      "书籍"
+    ],
+    "strippedStr": "书籍",
+    "level": 1,
+    "addDate": "2025-05-24",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "笔记",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记"
+    ],
+    "fullPathStr": "收藏夹栏/笔记",
+    "strippedPath": [
+      "笔记"
+    ],
+    "strippedStr": "笔记",
+    "level": 1,
+    "addDate": "2025-01-25",
+    "directCount": 0,
+    "isEmpty": true
+  },
+  {
+    "name": "js",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记",
+      "js"
+    ],
+    "fullPathStr": "收藏夹栏/笔记/js",
+    "strippedPath": [
+      "笔记",
+      "js"
+    ],
+    "strippedStr": "笔记/js",
+    "level": 2,
+    "addDate": "2025-01-25",
+    "directCount": 2,
+    "isEmpty": false
+  },
+  {
+    "name": "git",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记",
+      "git"
+    ],
+    "fullPathStr": "收藏夹栏/笔记/git",
+    "strippedPath": [
+      "笔记",
+      "git"
+    ],
+    "strippedStr": "笔记/git",
+    "level": 2,
+    "addDate": "2025-01-25",
+    "directCount": 6,
+    "isEmpty": false
+  },
+  {
+    "name": "spirngsecurity6",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记",
+      "spirngsecurity6"
+    ],
+    "fullPathStr": "收藏夹栏/笔记/spirngsecurity6",
+    "strippedPath": [
+      "笔记",
+      "spirngsecurity6"
+    ],
+    "strippedStr": "笔记/spirngsecurity6",
+    "level": 2,
+    "addDate": "2025-01-25",
+    "directCount": 6,
+    "isEmpty": false
+  },
+  {
+    "name": "nodejs",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记",
+      "nodejs"
+    ],
+    "fullPathStr": "收藏夹栏/笔记/nodejs",
+    "strippedPath": [
+      "笔记",
+      "nodejs"
+    ],
+    "strippedStr": "笔记/nodejs",
+    "level": 2,
+    "addDate": "2025-01-25",
+    "directCount": 0,
+    "isEmpty": true
+  },
+  {
+    "name": "问题解决",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记",
+      "nodejs",
+      "问题解决"
+    ],
+    "fullPathStr": "收藏夹栏/笔记/nodejs/问题解决",
+    "strippedPath": [
+      "笔记",
+      "nodejs",
+      "问题解决"
+    ],
+    "strippedStr": "笔记/nodejs/问题解决",
+    "level": 3,
+    "addDate": "2025-01-25",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "vue",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记",
+      "vue"
+    ],
+    "fullPathStr": "收藏夹栏/笔记/vue",
+    "strippedPath": [
+      "笔记",
+      "vue"
+    ],
+    "strippedStr": "笔记/vue",
+    "level": 2,
+    "addDate": "2025-01-25",
+    "directCount": 11,
+    "isEmpty": false
+  },
+  {
+    "name": "算法",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记",
+      "算法"
+    ],
+    "fullPathStr": "收藏夹栏/笔记/算法",
+    "strippedPath": [
+      "笔记",
+      "算法"
+    ],
+    "strippedStr": "笔记/算法",
+    "level": 2,
+    "addDate": "2025-01-25",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "后端",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记",
+      "后端"
+    ],
+    "fullPathStr": "收藏夹栏/笔记/后端",
+    "strippedPath": [
+      "笔记",
+      "后端"
+    ],
+    "strippedStr": "笔记/后端",
+    "level": 2,
+    "addDate": "2025-01-25",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "java",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记",
+      "java"
+    ],
+    "fullPathStr": "收藏夹栏/笔记/java",
+    "strippedPath": [
+      "笔记",
+      "java"
+    ],
+    "strippedStr": "笔记/java",
+    "level": 2,
+    "addDate": "2025-01-25",
+    "directCount": 14,
+    "isEmpty": false
+  },
+  {
+    "name": "springmvc",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记",
+      "springmvc"
+    ],
+    "fullPathStr": "收藏夹栏/笔记/springmvc",
+    "strippedPath": [
+      "笔记",
+      "springmvc"
+    ],
+    "strippedStr": "笔记/springmvc",
+    "level": 2,
+    "addDate": "2025-02-10",
+    "directCount": 2,
+    "isEmpty": false
+  },
+  {
+    "name": "css",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记",
+      "css"
+    ],
+    "fullPathStr": "收藏夹栏/笔记/css",
+    "strippedPath": [
+      "笔记",
+      "css"
+    ],
+    "strippedStr": "笔记/css",
+    "level": 2,
+    "addDate": "2025-03-03",
+    "directCount": 8,
+    "isEmpty": false
+  },
+  {
+    "name": "spring",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记",
+      "spring"
+    ],
+    "fullPathStr": "收藏夹栏/笔记/spring",
+    "strippedPath": [
+      "笔记",
+      "spring"
+    ],
+    "strippedStr": "笔记/spring",
+    "level": 2,
+    "addDate": "2025-03-04",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "java工具类",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记",
+      "java工具类"
+    ],
+    "fullPathStr": "收藏夹栏/笔记/java工具类",
+    "strippedPath": [
+      "笔记",
+      "java工具类"
+    ],
+    "strippedStr": "笔记/java工具类",
+    "level": 2,
+    "addDate": "2025-03-13",
+    "directCount": 2,
+    "isEmpty": false
+  },
+  {
+    "name": "设计模式",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记",
+      "设计模式"
+    ],
+    "fullPathStr": "收藏夹栏/笔记/设计模式",
+    "strippedPath": [
+      "笔记",
+      "设计模式"
+    ],
+    "strippedStr": "笔记/设计模式",
+    "level": 2,
+    "addDate": "2025-03-30",
+    "directCount": 8,
+    "isEmpty": false
+  },
+  {
+    "name": "springcloud",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记",
+      "springcloud"
+    ],
+    "fullPathStr": "收藏夹栏/笔记/springcloud",
+    "strippedPath": [
+      "笔记",
+      "springcloud"
+    ],
+    "strippedStr": "笔记/springcloud",
+    "level": 2,
+    "addDate": "2025-04-05",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "guigu",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记",
+      "springcloud",
+      "guigu"
+    ],
+    "fullPathStr": "收藏夹栏/笔记/springcloud/guigu",
+    "strippedPath": [
+      "笔记",
+      "springcloud",
+      "guigu"
+    ],
+    "strippedStr": "笔记/springcloud/guigu",
+    "level": 3,
+    "addDate": "2025-04-05",
+    "directCount": 3,
+    "isEmpty": false
+  },
+  {
+    "name": "springboot",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记",
+      "springboot"
+    ],
+    "fullPathStr": "收藏夹栏/笔记/springboot",
+    "strippedPath": [
+      "笔记",
+      "springboot"
+    ],
+    "strippedStr": "笔记/springboot",
+    "level": 2,
+    "addDate": "2025-04-22",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "mybatis-plus",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记",
+      "mybatis-plus"
+    ],
+    "fullPathStr": "收藏夹栏/笔记/mybatis-plus",
+    "strippedPath": [
+      "笔记",
+      "mybatis-plus"
+    ],
+    "strippedStr": "笔记/mybatis-plus",
+    "level": 2,
+    "addDate": "2025-04-22",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "gitee",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记",
+      "gitee"
+    ],
+    "fullPathStr": "收藏夹栏/笔记/gitee",
+    "strippedPath": [
+      "笔记",
+      "gitee"
+    ],
+    "strippedStr": "笔记/gitee",
+    "level": 2,
+    "addDate": "2025-04-25",
+    "directCount": 0,
+    "isEmpty": true
+  },
+  {
+    "name": "前端笔记",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记",
+      "gitee",
+      "前端笔记"
+    ],
+    "fullPathStr": "收藏夹栏/笔记/gitee/前端笔记",
+    "strippedPath": [
+      "笔记",
+      "gitee",
+      "前端笔记"
+    ],
+    "strippedStr": "笔记/gitee/前端笔记",
+    "level": 3,
+    "addDate": "2025-04-25",
+    "directCount": 3,
+    "isEmpty": false
+  },
+  {
+    "name": "redis",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记",
+      "redis"
+    ],
+    "fullPathStr": "收藏夹栏/笔记/redis",
+    "strippedPath": [
+      "笔记",
+      "redis"
+    ],
+    "strippedStr": "笔记/redis",
+    "level": 2,
+    "addDate": "2025-04-27",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "mysql",
+    "fullPath": [
+      "收藏夹栏",
+      "笔记",
+      "mysql"
+    ],
+    "fullPathStr": "收藏夹栏/笔记/mysql",
+    "strippedPath": [
+      "笔记",
+      "mysql"
+    ],
+    "strippedStr": "笔记/mysql",
+    "level": 2,
+    "addDate": "2025-05-12",
+    "directCount": 2,
+    "isEmpty": false
+  },
+  {
+    "name": "解决问题",
+    "fullPath": [
+      "收藏夹栏",
+      "解决问题"
+    ],
+    "fullPathStr": "收藏夹栏/解决问题",
+    "strippedPath": [
+      "解决问题"
+    ],
+    "strippedStr": "解决问题",
+    "level": 1,
+    "addDate": "2025-01-25",
+    "directCount": 2,
+    "isEmpty": false
+  },
+  {
+    "name": "ieda版本",
+    "fullPath": [
+      "收藏夹栏",
+      "解决问题",
+      "ieda版本"
+    ],
+    "fullPathStr": "收藏夹栏/解决问题/ieda版本",
+    "strippedPath": [
+      "解决问题",
+      "ieda版本"
+    ],
+    "strippedStr": "解决问题/ieda版本",
+    "level": 2,
+    "addDate": "2025-01-25",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "springboot版本问题",
+    "fullPath": [
+      "收藏夹栏",
+      "解决问题",
+      "springboot版本问题"
+    ],
+    "fullPathStr": "收藏夹栏/解决问题/springboot版本问题",
+    "strippedPath": [
+      "解决问题",
+      "springboot版本问题"
+    ],
+    "strippedStr": "解决问题/springboot版本问题",
+    "level": 2,
+    "addDate": "2025-02-14",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "windwos系统变量",
+    "fullPath": [
+      "收藏夹栏",
+      "解决问题",
+      "windwos系统变量"
+    ],
+    "fullPathStr": "收藏夹栏/解决问题/windwos系统变量",
+    "strippedPath": [
+      "解决问题",
+      "windwos系统变量"
+    ],
+    "strippedStr": "解决问题/windwos系统变量",
+    "level": 2,
+    "addDate": "2025-04-04",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "语雀",
+    "fullPath": [
+      "收藏夹栏",
+      "解决问题",
+      "语雀"
+    ],
+    "fullPathStr": "收藏夹栏/解决问题/语雀",
+    "strippedPath": [
+      "解决问题",
+      "语雀"
+    ],
+    "strippedStr": "解决问题/语雀",
+    "level": 2,
+    "addDate": "2025-04-12",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "linux",
+    "fullPath": [
+      "收藏夹栏",
+      "解决问题",
+      "linux"
+    ],
+    "fullPathStr": "收藏夹栏/解决问题/linux",
+    "strippedPath": [
+      "解决问题",
+      "linux"
+    ],
+    "strippedStr": "解决问题/linux",
+    "level": 2,
+    "addDate": "2025-04-22",
+    "directCount": 2,
+    "isEmpty": false
+  },
+  {
+    "name": "技术问题",
+    "fullPath": [
+      "收藏夹栏",
+      "解决问题",
+      "技术问题"
+    ],
+    "fullPathStr": "收藏夹栏/解决问题/技术问题",
+    "strippedPath": [
+      "解决问题",
+      "技术问题"
+    ],
+    "strippedStr": "解决问题/技术问题",
+    "level": 2,
+    "addDate": "2025-04-22",
+    "directCount": 2,
+    "isEmpty": false
+  },
+  {
+    "name": "win11",
+    "fullPath": [
+      "收藏夹栏",
+      "解决问题",
+      "win11"
+    ],
+    "fullPathStr": "收藏夹栏/解决问题/win11",
+    "strippedPath": [
+      "解决问题",
+      "win11"
+    ],
+    "strippedStr": "解决问题/win11",
+    "level": 2,
+    "addDate": "2025-05-22",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "good网站",
+    "fullPath": [
+      "收藏夹栏",
+      "good网站"
+    ],
+    "fullPathStr": "收藏夹栏/good网站",
+    "strippedPath": [
+      "good网站"
+    ],
+    "strippedStr": "good网站",
+    "level": 1,
+    "addDate": "2025-01-25",
+    "directCount": 8,
+    "isEmpty": false
+  },
+  {
+    "name": "新建文件夹",
+    "fullPath": [
+      "收藏夹栏",
+      "good网站",
+      "新建文件夹"
+    ],
+    "fullPathStr": "收藏夹栏/good网站/新建文件夹",
+    "strippedPath": [
+      "good网站",
+      "新建文件夹"
+    ],
+    "strippedStr": "good网站/新建文件夹",
+    "level": 2,
+    "addDate": "2025-01-25",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "java面试",
+    "fullPath": [
+      "收藏夹栏",
+      "java面试"
+    ],
+    "fullPathStr": "收藏夹栏/java面试",
+    "strippedPath": [
+      "java面试"
+    ],
+    "strippedStr": "java面试",
+    "level": 1,
+    "addDate": "2025-04-06",
+    "directCount": 10,
+    "isEmpty": false
+  },
+  {
+    "name": "高级",
+    "fullPath": [
+      "收藏夹栏",
+      "java面试",
+      "高级"
+    ],
+    "fullPathStr": "收藏夹栏/java面试/高级",
+    "strippedPath": [
+      "java面试",
+      "高级"
+    ],
+    "strippedStr": "java面试/高级",
+    "level": 2,
+    "addDate": "2025-05-17",
+    "directCount": 2,
+    "isEmpty": false
+  },
+  {
+    "name": "java面试总部",
+    "fullPath": [
+      "收藏夹栏",
+      "java面试",
+      "java面试总部"
+    ],
+    "fullPathStr": "收藏夹栏/java面试/java面试总部",
+    "strippedPath": [
+      "java面试",
+      "java面试总部"
+    ],
+    "strippedStr": "java面试/java面试总部",
+    "level": 2,
+    "addDate": "2025-05-17",
+    "directCount": 2,
+    "isEmpty": false
+  },
+  {
+    "name": "教程",
+    "fullPath": [
+      "收藏夹栏",
+      "教程"
+    ],
+    "fullPathStr": "收藏夹栏/教程",
+    "strippedPath": [
+      "教程"
+    ],
+    "strippedStr": "教程",
+    "level": 1,
+    "addDate": "2025-04-21",
+    "directCount": 7,
+    "isEmpty": false
+  },
+  {
+    "name": "redis",
+    "fullPath": [
+      "收藏夹栏",
+      "教程",
+      "redis"
+    ],
+    "fullPathStr": "收藏夹栏/教程/redis",
+    "strippedPath": [
+      "教程",
+      "redis"
+    ],
+    "strippedStr": "教程/redis",
+    "level": 2,
+    "addDate": "2025-04-26",
+    "directCount": 1,
+    "isEmpty": false
+  },
+  {
+    "name": "工具",
+    "fullPath": [
+      "收藏夹栏",
+      "教程",
+      "工具"
+    ],
+    "fullPathStr": "收藏夹栏/教程/工具",
+    "strippedPath": [
+      "教程",
+      "工具"
+    ],
+    "strippedStr": "教程/工具",
+    "level": 2,
+    "addDate": "2025-04-28",
+    "directCount": 2,
+    "isEmpty": false
+  },
+  {
+    "name": "shool",
+    "fullPath": [
+      "收藏夹栏",
+      "shool"
+    ],
+    "fullPathStr": "收藏夹栏/shool",
+    "strippedPath": [
+      "shool"
+    ],
+    "strippedStr": "shool",
+    "level": 1,
+    "addDate": "2025-04-22",
+    "directCount": 2,
+    "isEmpty": false
+  },
+  {
+    "name": "硬件驱动",
+    "fullPath": [
+      "收藏夹栏",
+      "硬件驱动"
+    ],
+    "fullPathStr": "收藏夹栏/硬件驱动",
+    "strippedPath": [
+      "硬件驱动"
+    ],
+    "strippedStr": "硬件驱动",
+    "level": 1,
+    "addDate": "2025-04-22",
+    "directCount": 1,
+    "isEmpty": false
+  }
+]
