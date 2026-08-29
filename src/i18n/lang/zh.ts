@@ -28,6 +28,7 @@ export default {
     editPage: "编辑本页",
     previousPost: "上一篇",
     nextPost: "下一篇",
+    toc: "目录",
   },
   pagination: {
     prev: "上一页",

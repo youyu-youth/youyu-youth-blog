@@ -35,5 +35,14 @@
 }
 
 :target {
-  scroll-margin-block: 1rem;
+  scroll-margin-block: 1.5rem;
+}
+
+@media (min-width: 1280px) {
+  #article #table-of-contents,
+  #article #table-of-contents + details,
+  #article #目录,
+  #article #目录 + details {
+    display: none;
+  }
 }

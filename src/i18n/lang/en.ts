@@ -28,6 +28,7 @@ export default {
     editPage: "Edit page",
     previousPost: "Previous Post",
     nextPost: "Next Post",
+    toc: "On this page",
   },
   pagination: {
     prev: "Prev",

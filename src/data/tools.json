@@ -3,42 +3,161 @@
     "name": "Excalidraw",
     "url": "https://excalidraw.com",
     "description": "手绘风格在线白板",
-    "category": "设计",
-    "icon": "https://excalidraw.com/favicon.ico"
+    "category": "画图",
+    "icon": "https://cdn.jsdelivr.net/npm/simple-icons/icons/excalidraw.svg"
   },
   {
-    "name": "Carbon",
-    "url": "https://carbon.now.sh",
-    "description": "代码截图美化工具",
-    "category": "开发",
-    "icon": "https://carbon.now.sh/favicon.ico"
-  },
-  {
-    "name": "TinyPNG",
-    "url": "https://tinypng.com",
-    "description": "在线图片压缩",
-    "category": "工具",
-    "icon": "https://tinypng.com/favicon.ico"
-  },
-  {
-    "name": "Regex101",
-    "url": "https://regex101.com",
-    "description": "正则表达式在线测试",
-    "category": "开发",
-    "icon": "https://regex101.com/favicon.ico"
+    "name": "draw.io",
+    "url": "https://app.diagrams.net",
+    "description": "流程图与架构图绘制",
+    "category": "画图",
+    "icon": "https://cdn.jsdelivr.net/npm/simple-icons/icons/diagramsdotnet.svg"
   },
   {
     "name": "Figma",
-    "url": "https://figma.com",
+    "url": "https://www.figma.com",
     "description": "协作式界面设计工具",
     "category": "设计",
-    "icon": "https://figma.com/favicon.ico"
+    "icon": "https://cdn.jsdelivr.net/npm/simple-icons/icons/figma.svg"
   },
   {
-    "name": "Vercel",
-    "url": "https://vercel.com",
-    "description": "前端应用部署平台",
-    "category": "部署",
-    "icon": "https://vercel.com/favicon.ico"
+    "name": "IntelliJ IDEA",
+    "url": "https://www.jetbrains.com/idea/",
+    "description": "JetBrains Java 旗舰 IDE",
+    "category": "开发",
+    "icon": "https://cdn.jsdelivr.net/npm/simple-icons/icons/intellijidea.svg"
+  },
+  {
+    "name": "VS Code",
+    "url": "https://code.visualstudio.com",
+    "description": "轻量可扩展的代码编辑器",
+    "category": "开发",
+    "icon": "https://cdn.jsdelivr.net/npm/simple-icons/icons/visualstudiocode.svg"
+  },
+  {
+    "name": "PyCharm",
+    "url": "https://www.jetbrains.com/pycharm/",
+    "description": "Python 专业 IDE",
+    "category": "开发",
+    "icon": "https://cdn.jsdelivr.net/npm/simple-icons/icons/pycharm.svg"
+  },
+  {
+    "name": "Navicat",
+    "url": "https://www.navicat.com",
+    "description": "数据库可视化管理工具",
+    "category": "开发",
+    "icon": "https://www.navicat.com/favicon.ico"
+  },
+  {
+    "name": "Git",
+    "url": "https://git-scm.com",
+    "description": "分布式版本控制系统",
+    "category": "开发",
+    "icon": "https://cdn.jsdelivr.net/npm/simple-icons/icons/git.svg"
+  },
+  {
+    "name": "HBuilder X",
+    "url": "https://www.dcloud.io/hbuilderx.html",
+    "description": "DCloud 前端极速开发工具",
+    "category": "开发",
+    "icon": "https://www.dcloud.io/favicon.ico"
+  },
+  {
+    "name": "Apifox",
+    "url": "https://apifox.com",
+    "description": "API 文档 / 调试 / Mock 一体化",
+    "category": "开发",
+    "icon": "https://cdn.jsdelivr.net/npm/simple-icons/icons/apifox.svg"
+  },
+  {
+    "name": "WindTerm",
+    "url": "https://github.com/kingToolbox/WindTerm",
+    "description": "高性能 SSH / SFTP 终端",
+    "category": "开发",
+    "icon": "https://github.com/favicon.ico"
+  },
+  {
+    "name": "VMware Workstation Pro",
+    "url": "https://www.vmware.com/products/workstation-pro.html",
+    "description": "桌面虚拟化平台",
+    "category": "开发",
+    "icon": "https://cdn.jsdelivr.net/npm/simple-icons/icons/vmware.svg"
+  },
+  {
+    "name": "Zed",
+    "url": "https://zed.dev",
+    "description": "Rust 打造的高性能协作编辑器",
+    "category": "开发",
+    "icon": "https://cdn.jsdelivr.net/npm/simple-icons/icons/zedindustries.svg"
+  },
+  {
+    "name": "ShareX",
+    "url": "https://getsharex.com",
+    "description": "截图 / 录屏 / 标注工具",
+    "category": "实用工具",
+    "icon": "https://cdn.jsdelivr.net/npm/simple-icons/icons/sharex.svg"
+  },
+  {
+    "name": "Clash Verge",
+    "url": "https://github.com/clash-verge-rev/clash-verge-rev",
+    "description": "Clash 代理图形客户端",
+    "category": "实用工具",
+    "icon": "https://github.com/favicon.ico"
+  },
+  {
+    "name": "OBS Studio",
+    "url": "https://obsproject.com",
+    "description": "开源直播 / 录制工具",
+    "category": "实用工具",
+    "icon": "https://cdn.jsdelivr.net/npm/simple-icons/icons/obsstudio.svg"
+  },
+  {
+    "name": "CC-Switch",
+    "url": "https://ccswitch.co/zh",
+    "description": "Claude Code 供应商切换与路由",
+    "category": "实用工具",
+    "icon": "https://github.com/favicon.ico"
+  },
+  {
+    "name": "Claude Code",
+    "url": "https://claude.ai",
+    "description": "Anthropic 官方 Agent 编程工具",
+    "category": "Agent编程",
+    "icon": "https://cdn.jsdelivr.net/npm/simple-icons/icons/claude.svg"
+  },
+  {
+    "name": "Codex",
+    "url": "https://openai.com/codex",
+    "description": "OpenAI 代码生成 Agent",
+    "category": "Agent编程",
+    "icon": "https://cdn.jsdelivr.net/npm/simple-icons/icons/openai.svg"
+  },
+  {
+    "name": "Zcode",
+    "url": "https://zcode-ai.com",
+    "description": "智谱多 Agent 可视化编程平台",
+    "category": "Agent编程",
+    "icon": "https://zcode-ai.com/favicon.ico"
+  },
+  {
+    "name": "WorkBuddy",
+    "url": "https://www.workbuddy.ai",
+    "description": "腾讯云全场景 AI 办公工作台",
+    "category": "Agent编程",
+    "icon": "https://www.workbuddy.ai/favicon.ico"
+  },
+  {
+    "name": "TraeWork",
+    "url": "https://www.trae.cn/work",
+    "description": "字节 AI 办公平台 Work/Code 双模式",
+    "category": "Agent编程",
+    "icon": "https://www.trae.cn/favicon.ico"
+  },
+  {
+    "name": "OpenCode",
+    "url": "https://opencode.ai",
+    "description": "开源 Agent 编程助手",
+    "category": "Agent编程",
+    "icon": "https://opencode.ai/favicon.ico"
   }
 ]

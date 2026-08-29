@@ -1,0 +1,65 @@
+---
+type Heading = {
+  depth: number;
+  slug: string;
+  text: string;
+};
+
+type Props = {
+  headings: Heading[];
+  title?: string;
+};
+
+const { headings, title = "目录" } = Astro.props;
+
+const filtered = headings.filter(
+  h => h.slug && h.text && h.depth >= 2 && h.depth <= 4
+);
+
+if (filtered.length === 0) {
+  return null;
+}
+---
+
+<aside
+  id="toc"
+  class="hidden w-[280px] shrink-0 xl:sticky xl:top-24 xl:block xl:max-h-[calc(100dvh-6rem)] xl:self-start"
+  aria-label={title}
+>
+  <nav
+    class="border-border bg-background max-h-[calc(100dvh-6rem)] overflow-y-auto border px-4 py-5"
+  >
+    <p class="text-foreground mb-4 text-base font-semibold">{title}</p>
+    <ul class="space-y-1.5 text-[15px]">
+      {
+        filtered.map(h => (
+          <li
+            class:list={[
+              "leading-7",
+              h.depth === 2 && "ps-0",
+              h.depth === 3 && "ps-4",
+              h.depth === 4 && "ps-8",
+            ]}
+          >
+            <a
+              href={`#${h.slug}`}
+              data-toc-link
+              data-slug={h.slug}
+              class="toc-link text-muted-foreground hover:text-foreground hover:border-muted-foreground/30 block border-s-2 border-transparent ps-2 py-1"
+            >
+              {h.text}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</aside>
+
+<style>
+  .toc-link.toc-active {
+    color: var(--color-accent);
+    border-left-color: var(--color-accent);
+    font-weight: 600;
+  }
+</style>
