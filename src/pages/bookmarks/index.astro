@@ -17,9 +17,8 @@ const t = useTranslations(locale);
 const tree = buildBookmarkTree(bookmarks as any, folders as any);
 const total = bookmarks.length;
 const totalFolders = folders.length;
-const topCount = tree.length;
 
-// first path as default active
+// default: show first category
 const defaultPath = tree[0]?.pathStr || "";
 ---
 
@@ -27,42 +26,6 @@ const defaultPath = tree[0]?.pathStr || "";
   <Header />
   <Breadcrumb />
   <main id="main-content" class="app-layout pb-10">
-    <!-- Hero -->
-    <section class="grid grid-cols-1 gap-8 border-b border-border pb-8 lg:grid-cols-12 lg:gap-6 lg:pb-10">
-      <div class="flex flex-col gap-3 lg:col-span-7">
-        <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-          {locale === "zh" ? "收藏索引" : "Bookmarks index"}
-        </p>
-        <h1 class="font-heading text-4xl font-semibold leading-none tracking-tighter lg:text-[44px]">
-          {t.pages.bookmarksTitle}
-        </h1>
-        <p class="max-w-[52ch] text-[15px] leading-relaxed text-muted-foreground">
-          {t.pages.bookmarksDesc}
-          <span class="hidden sm:inline">
-            {locale === "zh" ? "按收藏夹层级浏览，先选分类再看子文件夹与网站，避免一屏拉爆。" : "Browse by folder hierarchy — pick a category, then subfolders, then sites."}
-          </span>
-        </p>
-        <p class="text-xs text-muted-foreground">{t.bookmarks.importTip}</p>
-      </div>
-      <div class="grid grid-cols-3 gap-3 lg:col-span-5">
-        <div class="rounded-lg border border-border bg-card p-4">
-          <p class="font-mono text-xs text-muted-foreground">{locale === "zh" ? "总数" : "Bookmarks"}</p>
-          <p class="font-heading mt-2 text-3xl font-semibold leading-none tracking-tighter">{total}</p>
-          <p class="mt-1 font-mono text-xs text-muted-foreground">{locale === "zh" ? "个收藏" : "collected"}</p>
-        </div>
-        <div class="rounded-lg border border-border bg-card p-4">
-          <p class="font-mono text-xs text-muted-foreground">{locale === "zh" ? "文件夹" : "Folders"}</p>
-          <p class="font-heading mt-2 text-3xl font-semibold leading-none tracking-tighter">{totalFolders}</p>
-          <p class="mt-1 font-mono text-xs text-muted-foreground">{locale === "zh" ? "个目录" : "groups"}</p>
-        </div>
-        <div class="rounded-lg bg-accent p-4 text-accent-foreground">
-          <p class="font-mono text-xs text-accent-foreground/80">{locale === "zh" ? "顶级" : "Top"}</p>
-          <p class="font-heading mt-2 text-3xl font-semibold leading-none tracking-tighter">{topCount}</p>
-          <p class="mt-1 font-mono text-xs text-accent-foreground/80">{locale === "zh" ? "个分类" : "categories"}</p>
-        </div>
-      </div>
-    </section>
-
     <!-- Toolbar -->
     <section class="mt-8">
       <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
@@ -326,49 +289,149 @@ const defaultPath = tree[0]?.pathStr || "";
 
       sections.forEach(sec => {
         const secPath = sec.dataset.sectionPath || "";
-        const isActiveBranch = !hasQuery && (activePath === secPath || activePath.startsWith(secPath + "/") || secPath.startsWith(activePath + "/") || activePath === "");
-        // When searching, we show sections that contain matches regardless of active
         if (hasQuery) {
-          // need to check if any bookmark inside sec matches q
           const items = Array.from(sec.querySelectorAll("li[data-search]"));
           let secVisibleCount = 0;
           items.forEach(li => {
             const text = li.dataset.search || "";
             const match = text.includes(q);
-            // also need to respect activePath? When searching, ignore active filter, show all matches
             li.style.display = match ? "" : "none";
             li.setAttribute("aria-hidden", match ? "false" : "true");
             if (match) secVisibleCount++;
           });
-          // hide/show subsections based on whether they have visible items
           const subsections = Array.from(sec.querySelectorAll("[data-subsection-path], [data-leaf-path]"));
           subsections.forEach(sub => {
             const subItems = Array.from(sub.querySelectorAll("li[data-search]"));
             const subVisible = subItems.some(li => li.style.display !== "none");
             sub.style.display = subVisible ? "" : "none";
           });
-          // sec visibility
           const showSec = secVisibleCount > 0;
           sec.style.display = showSec ? "" : "none";
           if (showSec) visibleSections++;
           visibleBookmarks += secVisibleCount;
-        } else {
-          // no query, show only active branch
-          const showSec = isActiveBranch;
-          sec.style.display = showSec ? "" : "none";
-          if (showSec) {
-            visibleSections++;
-            // show all bookmarks inside sec
-            const items = Array.from(sec.querySelectorAll("li[data-search]"));
-            items.forEach(li => {
-              li.style.display = "";
-              li.setAttribute("aria-hidden", "false");
+          return;
+        }
+
+        // no query: precise branch
+        let showSec = false;
+        if (activePath === "") showSec = true;
+        else if (activePath === secPath) showSec = true;
+        else if (activePath.startsWith(secPath + "/")) showSec = true;
+        else showSec = false;
+
+        if (!showSec) {
+          sec.style.display = "none";
+          return;
+        }
+
+        sec.style.display = "";
+        visibleSections++;
+
+        if (activePath === "" || activePath === secPath) {
+          // show all inside sec
+          const items = Array.from(sec.querySelectorAll("li[data-search]"));
+          items.forEach(li => {
+            li.style.display = "";
+            li.setAttribute("aria-hidden", "false");
+          });
+          const subsections = Array.from(sec.querySelectorAll("[data-subsection-path], [data-leaf-path]"));
+          subsections.forEach(sub => (sub.style.display = ""));
+          visibleBookmarks += sec.querySelectorAll("li[data-search]").length;
+          return;
+        }
+
+        // active is descendant of sec -> show only that descendant branch
+        const allLis = Array.from(sec.querySelectorAll("li[data-search]"));
+        // hide all first, then selectively show
+        allLis.forEach(li => {
+          li.style.display = "none";
+          li.setAttribute("aria-hidden", "true");
+        });
+        const subsections = Array.from(sec.querySelectorAll("[data-subsection-path]"));
+        const leafs = Array.from(sec.querySelectorAll("[data-leaf-path]"));
+        subsections.forEach(sub => (sub.style.display = "none"));
+        leafs.forEach(l => (l.style.display = "none"));
+
+        // find matching subsections/leaves
+        let secCount = 0;
+        // check subsections
+        subsections.forEach(sub => {
+          const p = sub.dataset.subsectionPath || "";
+          if (p === activePath) {
+            sub.style.display = "";
+            const lis = Array.from(sub.querySelectorAll("li[data-search]"));
+            // show sub's direct lis and all its leaf descendants
+            lis.forEach(li => {
+              const lp = li.dataset.path || "";
+              // if leaf inside sub, its path will be leaf path, which starts with p, so show
+              if (lp === p || lp.startsWith(p + "/")) {
+                li.style.display = "";
+                li.setAttribute("aria-hidden", "false");
+                secCount++;
+              }
             });
-            // show subsections
-            const subsections = Array.from(sec.querySelectorAll("[data-subsection-path], [data-leaf-path]"));
-            subsections.forEach(sub => (sub.style.display = ""));
-            visibleBookmarks += items.length;
+            // show all leaf containers under this sub (they are part of sub's all)
+            const subLeafs = Array.from(sub.querySelectorAll("[data-leaf-path]"));
+            subLeafs.forEach(leaf => {
+              const lp = leaf.dataset.leafPath || "";
+              if (lp === p || lp.startsWith(p + "/")) {
+                leaf.style.display = "";
+                // its lis already counted above if they match
+              }
+            });
+          } else if (activePath.startsWith(p + "/")) {
+            // active deeper than this sub (sub is ancestor)
+            sub.style.display = "";
+            // hide sub's direct lis (path === p)
+            // only show the descendant leaf/branch
+            const subLeafs = Array.from(sub.querySelectorAll("[data-leaf-path]"));
+            let hasVisibleLeaf = false;
+            subLeafs.forEach(leaf => {
+              const lp = leaf.dataset.leafPath || "";
+              if (lp === activePath || activePath.startsWith(lp + "/") || lp.startsWith(activePath + "/")) {
+                leaf.style.display = "";
+                const lis = Array.from(leaf.querySelectorAll("li[data-search]"));
+                lis.forEach(li => {
+                  const liPath = li.dataset.path || "";
+                  if (liPath === activePath || liPath.startsWith(activePath + "/")) {
+                    li.style.display = "";
+                    li.setAttribute("aria-hidden", "false");
+                    secCount++;
+                    hasVisibleLeaf = true;
+                  }
+                });
+                if (lp === activePath) hasVisibleLeaf = true;
+              } else {
+                leaf.style.display = "none";
+              }
+            });
+            if (!hasVisibleLeaf) {
+              // no leaf matched, sub direct already handled via first branch
+            }
+            // hide sub's direct lis (they are not the target)
+            const directInSub = Array.from(sub.querySelectorAll(":scope > ul > li[data-search]"));
+            directInSub.forEach(li => {
+              const lp = li.dataset.path || "";
+              if (lp !== activePath && !activePath.startsWith(lp + "/")) {
+                li.style.display = "none";
+                li.setAttribute("aria-hidden", "true");
+              }
+            });
+          } else if (p.startsWith(activePath + "/")) {
+            // shouldn't happen when active is descendant of sec, but for completeness when active is sec's child descendant?
           }
+        });
+
+        // also handle leafs that are direct under sec? In our structure leafs are always under sub, so covered
+        // For active that is direct leaf under sec (level2 without sub wrapper?) Actually level2 sub is subsection, level3 leaf is leaf. So above covers.
+
+        // fallback: if active is direct subsection, secCount already counted via sub's lis.
+        // Count visible lis inside sec after filtering
+        const visibleInSec = Array.from(sec.querySelectorAll("li[data-search]")).filter(li => li.style.display !== "none").length;
+        visibleBookmarks += visibleInSec;
+        // if no visible but sec itself should show something? Keep sec visible even if 0? Already counted via visibleInSec
+        if (visibleInSec === 0) {
+          // keep sec visible but empty will be handled by empty state
         }
       });
 

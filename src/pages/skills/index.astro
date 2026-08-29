@@ -14,7 +14,6 @@ const t = useTranslations(locale);
 
 const total = skills.length;
 const totalYears = skills.reduce((acc, s) => acc + (s.years ?? 0), 0);
-const topCount = skills.filter(s => s.level === 5).length;
 const maxYears = Math.max(...skills.map(s => s.years ?? 0));
 
 type Variant = "accent" | "inverted" | "muted" | "card";
@@ -46,56 +45,6 @@ const sortedByYears = [...skills].sort((a, b) => (b.years ?? 0) - (a.years ?? 0)
   <Header />
   <Breadcrumb />
   <main id="main-content" class="app-layout pb-10">
-    <!-- Hero: Asymmetric split -->
-    <section class="grid grid-cols-1 gap-8 border-b border-border pb-8 lg:grid-cols-12 lg:gap-6 lg:pb-10">
-      <div class="flex flex-col gap-3 lg:col-span-7">
-        <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-          Stack inventory
-        </p>
-        <h1 class="font-heading text-4xl font-semibold leading-none tracking-tighter lg:text-[44px]">
-          {t.pages.skillsTitle}
-        </h1>
-        <p class="max-w-[52ch] text-[15px] leading-relaxed text-muted-foreground">
-          {t.pages.skillsDesc}
-        </p>
-      </div>
-      <div class="grid grid-cols-3 gap-3 lg:col-span-5">
-        <div class="rounded-lg border border-border bg-card p-4">
-          <p class="font-mono text-xs text-muted-foreground">
-            {locale === "zh" ? "技能数" : "Items"}
-          </p>
-          <p class="font-heading mt-2 text-3xl font-semibold leading-none tracking-tighter">
-            {total}
-          </p>
-          <p class="mt-1 font-mono text-xs text-muted-foreground">
-            {locale === "zh" ? "项核心栈" : "core stack"}
-          </p>
-        </div>
-        <div class="rounded-lg border border-border bg-card p-4">
-          <p class="font-mono text-xs text-muted-foreground">
-            {locale === "zh" ? "累计" : "Years"}
-          </p>
-          <p class="font-heading mt-2 text-3xl font-semibold leading-none tracking-tighter">
-            {totalYears}
-          </p>
-          <p class="mt-1 font-mono text-xs text-muted-foreground">
-            {locale === "zh" ? "年经验" : "years total"}
-          </p>
-        </div>
-        <div class="rounded-lg bg-accent p-4 text-accent-foreground">
-          <p class="font-mono text-xs text-accent-foreground/80">
-            Top
-          </p>
-          <p class="font-heading mt-2 text-3xl font-semibold leading-none tracking-tighter">
-            {topCount}
-          </p>
-          <p class="mt-1 font-mono text-xs text-accent-foreground/80">
-            {locale === "zh" ? "项精通" : "mastered"}
-          </p>
-        </div>
-      </div>
-    </section>
-
     <!-- Bento Grid -->
     <section class="mt-10">
       <div class="max-w-[52ch]">
