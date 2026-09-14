@@ -42,7 +42,7 @@ export default {
     allPosts: "All Posts",
     heroTagline: "Between code and thought, searching for better answers.",
     heroRole: "Developer",
-    heroLocation: "China · Beijing",
+    heroLocation: "China · Changsha",
     heroQuote: "Build ideas. Ship slowly.",
     heroQuoteAuthor: "",
   },

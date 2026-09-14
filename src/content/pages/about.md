@@ -28,10 +28,10 @@ and so much more.
 
 ## Show your support
 
-If you like [AstroPaper](https://github.com/satnaing/astro-paper), consider giving it a star ⭐️.
+If you like [AstroPaper](https://github.com/youyu-youth), consider giving it a star ⭐️.
 
-Found a bug 🐛 or have an improvement ✨ in mind? Feel free to open an [issue](https://github.com/satnaing/astro-paper/issues), submit a [pull request](https://github.com/satnaing/astro-paper/pulls) or start a [discussion](https://github.com/satnaing/astro-paper/discussions).
+Found a bug 🐛 or have an improvement ✨ in mind? Feel free to open an [issue](https://github.com/youyu-youth), submit a [pull request](https://github.com/youyu-youth) or start a [discussion](https://github.com/youyu-youth).
 
-If you find this theme helpful, you can also [sponsor me on GitHub](https://github.com/sponsors/satnaing) or [buy me a coffee](https://buymeacoffee.com/satnaing) to show your support — every penny counts.
+If you find this theme helpful, you can also [sponsor me on GitHub](https://github.com/youyu-youth) or [buy me a coffee](https://buymeacoffee.com/satnaing) to show your support — every penny counts.
 
 Kyay zuu! 🙏🏼

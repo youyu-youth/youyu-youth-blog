@@ -3,6 +3,11 @@ interface SiteConfig {
   url: string;
   /** Blog title shown in header and meta tags */
   title: string;
+  /**
+   * Short brand text shown in the header logo,
+   * falls back to site.title when omitted.
+   */
+  logoText?: string;
   /** Short description used in SEO meta and RSS feed */
   description: string;
   /** Default post author name */
@@ -134,7 +139,7 @@ type ResolvedSiteConfig = Required<
     | "ogImage"
   >
 > &
-  Pick<SiteConfig, "profile" | "googleVerification" | "avatar">;
+  Pick<SiteConfig, "profile" | "googleVerification" | "avatar" | "logoText">;
 
 export interface ResolvedAstroPaperConfig {
   site: ResolvedSiteConfig;

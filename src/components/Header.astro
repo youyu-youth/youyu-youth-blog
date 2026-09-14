@@ -56,7 +56,7 @@ const languageSwitchUrl = getRelativeLocaleUrl(
 </a>
 
 <header
-  class="flex w-full flex-col items-center justify-between bg-background sm:flex-row"
+  class="bg-background flex w-full flex-col items-center justify-between sm:flex-row"
 >
   <div
     class="app-layout relative flex w-full items-baseline justify-between py-4 sm:items-center sm:py-6"
@@ -65,7 +65,7 @@ const languageSwitchUrl = getRelativeLocaleUrl(
       href={getRelativeLocaleUrl(locale, "")}
       class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"
     >
-      {site.title}
+      {site.logoText ?? site.title}
     </a>
     <nav
       id="nav-menu"

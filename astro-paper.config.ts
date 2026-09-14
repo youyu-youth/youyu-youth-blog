@@ -3,10 +3,12 @@ import { defineAstroPaperConfig } from "./src/types/config";
 export default defineAstroPaperConfig({
   site: {
     url: "https://astro-paper.pages.dev/",
-    title: "AstroPaper",
+    title: "yyyouth blog",
     description: "A minimal, responsive and SEO-friendly Astro blog theme.",
     author: "Sat Naing",
     profile: "https://satna.ing",
+    avatar: "yyyouth.jpg",
+    logoText: "yyyouth",
     ogImage: "default-og.jpg",
     lang: "zh",
     timezone: "Asia/Shanghai",
@@ -23,13 +25,12 @@ export default defineAstroPaperConfig({
     showArchives: true,
     showBackButton: true,
     editPost: {
-      enabled: true,
-      url: "https://github.com/satnaing/astro-paper/edit/main/",
+      enabled: false,
     },
     search: "pagefind",
   },
   socials: [
-    { name: "github",   url: "https://github.com/satnaing/astro-paper" },
+    { name: "github",   url: "https://github.com/youyu-youth" },
     { name: "x",        url: "https://x.com/username" },
     { name: "linkedin", url: "https://www.linkedin.com/in/username/" },
     { name: "mail",     url: "mailto:yourmail@gmail.com" },

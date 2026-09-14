@@ -42,7 +42,7 @@ export default {
     allPosts: "查看全部文章",
     heroTagline: "在代码与思想之间，探索更好的答案。",
     heroRole: "开发者",
-    heroLocation: "中国 · 北京",
+    heroLocation: "中国 · 长沙",
     heroQuote: "Build ideas. Ship slowly.",
     heroQuoteAuthor: "",
   },
