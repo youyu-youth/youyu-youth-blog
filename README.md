@@ -1,166 +1,214 @@
-# AstroPaper 📄
+# yyyouth-blog
 
-![AstroPaper](public/default-og.jpg)
-[![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com/community/file/1356898632249991861)
-![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-![GitHub](https://img.shields.io/github/license/satnaing/astro-paper?color=%232F3741&style=for-the-badge)
-[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white&style=for-the-badge)](https://conventionalcommits.org)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=for-the-badge)](http://commitizen.github.io/cz-cli/)
+[简体中文](./README.md) | [English](./README.en.md)
 
-AstroPaper is a minimal, responsive, accessible and SEO-friendly Astro blog theme. This theme is designed and crafted based on [my personal blog](https://satnaing.dev/blog).
+![Astro](https://img.shields.io/badge/Astro-7-BC52EE?style=for-the-badge&logo=astro&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![License: MIT](https://img.shields.io/badge/License-MIT-2F3741?style=for-the-badge)
 
-Read [the blog posts](https://astro-paper.pages.dev/posts/) or check [the README Documentation Section](#-documentation) for more info.
+一个以 Astro 构建的个人博客与内容站：一半是文章，一半是项目、相册、收藏夹、技能和工具。在 [AstroPaper](https://github.com/satnaing/astro-paper) 的基础上做了大量本地化改造，重点是**多主题视觉系统**与**内容型功能页**。
 
-## 🔥 Features
+![yyyouth-blog](public/default-og.jpg)
 
-- [x] type-safe markdown
-- [x] super fast performance
-- [x] accessible (Keyboard/VoiceOver)
-- [x] responsive (mobile ~ desktops)
-- [x] SEO-friendly
-- [x] light & dark mode
-- [x] static search ([Pagefind](https://pagefind.app/))
-- [x] draft posts & pagination
-- [x] sitemap & rss feed
-- [x] MDX support
-- [x] collapsible table of contents
-- [x] followed best practices
-- [x] highly customizable
-- [x] dynamic OG image generation for blog posts ([Blog Post](https://astro-paper.pages.dev/posts/dynamic-og-image-generation-in-astropaper-blog-posts/))
-- [x] i18n ready
+## ✨ 特色功能
 
-_Note: I've tested screen-reader accessibility of AstroPaper using **VoiceOver** on Mac and **TalkBack** on Android. I couldn't test all other screen-readers out there. However, accessibility enhancements in AstroPaper should be working fine on others as well._
+### 视觉与主题
 
-## ✅ Lighthouse Score
+- **多主题调色板**：明暗模式 × 14 套配色预设（`default`、`pixel`、`dark-plus`、`dracula`、`everforest`、`github-dark`、`github-light`、`gruvbox-dark`、`gruvbox-light`、`nord`、`catppuccin`、`tokyo-night`、`kanagawa`、`one-dark`），调色板选择器支持搜索与键盘操作。
+- **全局背景图**：自动扫描 `src/assets/bg/` 下的图片，顶部一键切换，Header 与正文做透明适配。
+- **响应式布局**：桌面端固定左侧导航，移动端切换为横向 pill 导航。
+- **无闪烁切换**：主题/配色/背景在首屏内联脚本中同步恢复，避免 FOUC。
 
-<p align="center">
-  <a href="https://pagespeed.web.dev/report?url=https%3A%2F%2Fastro-paper.pages.dev%2F&form_factor=desktop">
-    <img width="710" alt="AstroPaper Lighthouse Score" src="AstroPaper-lighthouse-score.svg">
-  </a>
-</p>
+### 内容型功能页
 
-## 🚀 Project Structure
+- **分类**（`/categories`）：按文章 `category` 字段聚合。
+- **项目**（`/projects`）：卡片展示技术栈、状态、GitHub 与 Demo 链接。
+- **相册**（`/albums`）：图集浏览，内置 lightbox（Esc / 遮罩关闭）。
+- **技能**（`/skills`）：数据驱动自 `src/data/skills.json`，bento 布局。
+- **工具**（`/tools`）：数据驱动自 `src/data/tools.json`，带分类与搜索过滤。
+- **收藏夹**（`/bookmarks`）：树形文件夹浏览 + 搜索 + 分类筛选。
+- **打赏**：文章底部弹窗展示微信 / 支付宝二维码，单篇文章可用 `hideDonate` 关闭。
 
-Inside of AstroPaper, you'll see the following folders and files:
+### 阅读体验
+
+- 阅读进度条、代码块复制按钮、标题锚点链接、TOC 滚动高亮。
+- 文章图片灯箱：支持双指缩放、双击放大、平移与键盘操作。
+- Shiki 双主题代码高亮（文件名标注、行高亮、增删标记）。
+- Callout 提示块（`rehype-callouts`）、可折叠目录。
+
+### 国际化与发布
+
+- **中英双语**：中文在根路径，英文在 `/en/` 前缀下，UI 文案与搜索索引均覆盖两种语言。
+- **静态搜索**：[Pagefind](https://pagefind.app/) 在构建后生成索引。
+- **动态 OG 图**：Satori + Sharp + Astro Fonts 为文章与站点生成分享图。
+- RSS、Sitemap、`robots.txt`、404 页面、View Transitions。
+- **收藏夹导入 CLI**：`pnpm bookmarks:import` 解析浏览器导出的书签 HTML，保留层级与图标。
+
+## 🧱 项目结构
 
 ```bash
 /
-├── public/
-│   ├── pagefind/          # auto-generated on build
-│   ├── favicon.svg
-│   └── default-og.jpg
+├── public/                      # 静态资源（favicon、默认 OG 图、打赏二维码）
+├── scripts/
+│   └── import-bookmarks.mjs     # 收藏夹导入 CLI
 ├── src/
-│   ├── assets/
-│   │   ├── icons/
-│   │   └── images/
-│   ├── components/
-│   ├── content/
-│   │   ├── pages/
-│   │   │   └── about.md
-│   │   └── posts/
-│   │       └── some-blog-posts.md
+│   ├── assets/                  # 图标、文章图片、背景图（bg/）、头像
+│   ├── components/              # 通用组件
+│   │   ├── home/                # Hero、SideNav、RecentPosts、PixelDecor
+│   │   ├── bookmarks/           # 收藏夹树形浏览
+│   │   ├── albums/ projects/ skills/ tools/
+│   │   └── Donate.astro         # 打赏弹窗
+│   ├── content/                 # 内容集合
+│   │   ├── posts/               # 文章
+│   │   ├── pages/               # 独立页面（about 等）
+│   │   ├── projects/            # 项目
+│   │   └── albums/              # 相册
+│   ├── data/                    # 独立 JSON 数据源
+│   │   ├── bookmarks.json       # 收藏夹条目
+│   │   ├── bookmarkFolders.json # 收藏夹文件夹树
+│   │   ├── skills.json
+│   │   └── tools.json
 │   ├── i18n/
-│   ├── layouts/
-│   ├── pages/
-│   ├── scripts/
+│   │   ├── index.ts             # useTranslations / 语言自动发现
+│   │   ├── types.ts             # UIStrings 类型约束
+│   │   └── lang/{zh,en}.ts      # 语言包
+│   ├── layouts/                 # Layout（主题与背景初始化、View Transitions）
+│   ├── pages/                   # 路由与端点（含 en/ 包装页）
 │   ├── styles/
-│   ├── types/
+│   │   ├── global.css           # Tailwind 入口与自定义 @utility
+│   │   └── theme.css            # 语义 CSS 变量与各调色板定义
+│   ├── types/config.ts          # 配置类型与 defineAstroPaperConfig
 │   ├── utils/
-│   ├── config.ts
-│   └── content.config.ts
-├── astro-paper.config.ts  # user-defined configurations
+│   │   ├── palettes.ts          # 调色板清单
+│   │   ├── backgrounds.ts       # 背景图自动发现
+│   │   └── postFilter.ts        # 草稿与定时发布
+│   ├── config.ts                # 内部已解析配置
+│   └── content.config.ts        # 内容集合 schema
+├── astro-paper.config.ts        # 用户配置入口
 └── astro.config.ts
 ```
 
-All blog posts are stored in the `src/content/posts/` directory. You can organise posts into subdirectories — the subdirectory name becomes part of the post URL.
+### 内容集合
 
-## 📖 Documentation
+| 集合       | 目录                    | 说明                                                                                                                         |
+| :--------- | :---------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
+| `posts`    | `src/content/posts/`    | 文章。必填 `pubDatetime`、`title`、`description`；可选 `category`、`featured`、`tags`、`draft`、`hideDonate`、`hideEditPost` |
+| `pages`    | `src/content/pages/`    | 独立页面，如 `about.md`                                                                                                      |
+| `projects` | `src/content/projects/` | 项目。含 `techStack`、`cover`、`github`、`demo`、`status`（`shipped`/`building`/`archived`）                                 |
+| `albums`   | `src/content/albums/`   | 相册。`photos[]` 每项含 `src`、`caption`、`alt`                                                                              |
 
-Documentation can be read in two formats\_ _markdown_ & _blog post_.
+以 `_` 开头的文件会被 loader 排除，可用作私有 / 草稿约定。文章按 `modDatetime ?? pubDatetime` 倒序排序。
 
-- Configuration - [markdown](src/content/posts/how-to-configure-astropaper-theme.md) | [blog post](https://astro-paper.pages.dev/posts/how-to-configure-astropaper-theme/)
-- Add Posts - [markdown](src/content/posts/adding-new-post.md) | [blog post](https://astro-paper.pages.dev/posts/adding-new-posts-in-astropaper-theme/)
-- Customize Color Schemes - [markdown](src/content/posts/customizing-astropaper-theme-color-schemes.md) | [blog post](https://astro-paper.pages.dev/posts/customizing-astropaper-theme-color-schemes/)
-- Predefined Color Schemes - [markdown](src/content/posts/predefined-color-schemes.md) | [blog post](https://astro-paper.pages.dev/posts/predefined-color-schemes/)
+## 🚀 本地开发
 
-## 💻 Tech Stack
-
-**Main Framework** - [Astro](https://astro.build/)  
-**Type Checking** - [TypeScript](https://www.typescriptlang.org/)  
-**Styling** - [TailwindCSS](https://tailwindcss.com/)  
-**UI/UX** - [Figma Design File](https://www.figma.com/community/file/1356898632249991861)  
-**Static Search** - [Pagefind](https://pagefind.app/)  
-**Icons** - [Tablers](https://tabler-icons.io/)  
-**Code Formatting** - [Prettier](https://prettier.io/)  
-**Deployment** - [Cloudflare Pages](https://pages.cloudflare.com/)  
-**Linting** - [ESLint](https://eslint.org)  
-**Dynamic OG images** - [Satori](https://github.com/vercel/satori) + [Sharp](https://sharp.pixelplumbing.com/) + [Astro Fonts](https://docs.astro.build/en/guides/fonts/)
-
-## 👨🏻‍💻 Running Locally
-
-You can start using this project locally by running the following command in your desired directory:
+环境要求：Node `>=22.12.0`，包管理器使用 `pnpm`。
 
 ```bash
-# pnpm
-pnpm create astro@latest --template satnaing/astro-paper
-
-# pnpm
-pnpm create astro@latest -- --template satnaing/astro-paper
-
-# yarn
-yarn create astro --template satnaing/astro-paper
-
-# bun
-bun create astro@latest -- --template satnaing/astro-paper
-```
-
-Then start the project by running the following commands:
-
-```bash
-# install dependencies if you haven't done so in the previous step.
 pnpm install
-
-# start running the project
 pnpm dev
 ```
 
-## Google Site Verification (optional)
+开发服务器默认运行在 `http://localhost:4321`。如果希望以后台方式启动：
 
-You can add your [Google Site Verification HTML tag](https://support.google.com/webmasters/answer/9008080#meta_tag_verification&zippy=%2Chtml-tag) by setting `site.googleVerification` in `astro-paper.config.ts`:
+```bash
+astro dev --background
+astro dev status   # 查看状态
+astro dev logs     # 查看日志
+astro dev stop     # 停止
+```
 
-```ts file="astro-paper.config.ts"
+## 🧞 命令
+
+| 命令                    | 说明                                                            |
+| :---------------------- | :-------------------------------------------------------------- |
+| `pnpm install`          | 安装依赖                                                        |
+| `pnpm dev`              | 启动本地开发服务器                                              |
+| `pnpm build`            | 类型检查 + 构建 + Pagefind 索引 + 拷贝索引到 `public/pagefind/` |
+| `pnpm preview`          | 本地预览构建产物                                                |
+| `pnpm sync`             | 生成 Astro 模块类型（修改内容集合或集成后执行）                 |
+| `pnpm bookmarks:import` | 解析浏览器导出的书签 HTML，写入 `src/data/`                     |
+| `pnpm lint`             | ESLint 检查                                                     |
+| `pnpm format`           | Prettier 格式化（`format:check` 用于校验）                      |
+
+> 搜索索引由 `pnpm build` 生成，因此搜索功能仅在执行过构建后可用。
+
+## ⚙️ 配置
+
+日常只需编辑 `astro-paper.config.ts`；`src/config.ts` 是带默认值合并后的内部解析配置，代码中统一通过 `@/config` 引用。
+
+```ts
 export default defineAstroPaperConfig({
   site: {
-    // ...
-    googleVerification: "your-google-site-verification-value",
+    url: "https://example.com/",
+    title: "yyyouth blog",
+    description: "...",
+    author: "...",
+    profile: "https://...",
+    avatar: "yyyouth.jpg", // 解析自 src/assets/images/
+    logoText: "yyyouth", // Header 品牌短文字
+    ogImage: "default-og.jpg",
+    lang: "zh",
+    timezone: "Asia/Shanghai",
+    dir: "ltr",
   },
-  // ...
+  posts: { perPage: 4, perIndex: 4, scheduledPostMargin: 15 * 60 * 1000 },
+  features: {
+    lightAndDarkMode: true,
+    dynamicOgImage: true,
+    showArchives: true,
+    showBackButton: true,
+    editPost: { enabled: false },
+    search: "pagefind", // 或 false 关闭搜索
+  },
+  socials: [/* name 对应 src/assets/icons/socials/<name>.svg */],
+  shareLinks: [/* 分享链接基址，文章 URL 作为参数追加 */],
+  donate: {
+    enabled: true,
+    wechat: "/qr/wechat-placeholder.svg",
+    alipay: "/qr/alipay-placeholder.svg",
+    tip: "如果觉得文章有帮助，欢迎打赏支持",
+  },
 });
 ```
 
-> See [this discussion](https://github.com/satnaing/astro-paper/discussions/334#discussioncomment-10139247) for adding AstroPaper to the Google Search Console.
+### 新增主题调色板
 
-## 🧞 Commands
+1. 在 `src/styles/theme.css` 复制一组 `[data-palette="x"][data-theme="light"]` 与 `[data-theme="dark"]` 变量块。
+2. 在 `src/utils/palettes.ts` 的 `PALETTES` 与 `PALETTE_LABELS` 中注册。
 
-All commands are run from the root of the project, from a terminal:
+调色板切换器会自动纳入新预设。
 
-| Command          | Action                                                                                                                           |
-| :--------------- | :------------------------------------------------------------------------------------------------------------------------------- |
-| `pnpm install`   | Installs dependencies                                                                                                            |
-| `pnpm dev`       | Starts local dev server at `localhost:4321`                                                                                      |
-| `pnpm build`     | Type-checks, builds the site, runs Pagefind indexing, and copies the index to `public/pagefind/`                                 |
-| `pnpm preview`   | Preview your build locally, before deploying                                                                                     |
-| `pnpm sync`      | Generates TypeScript types for all Astro modules. [Learn more](https://docs.astro.build/en/reference/cli-reference/#astro-sync). |
-| `pnpm astro ...` | Run CLI commands like `astro add`, `astro check`                                                                                 |
+### 新增语言
 
-## ✨ Feedback & Suggestions
+1. 在 `astro.config.ts` 的 `i18n.locales` 注册。
+2. 新增 `src/i18n/lang/<locale>.ts`（结构由 `src/i18n/types.ts` 的 `UIStrings` 约束，需同步所有语言文件）。
+3. 在 `src/pages/` 下建立对应的 `<locale>/` 包装页目录，参照 `src/pages/en/`。
 
-If you have any suggestions/feedback, you can contact me via [my email](mailto:satnaingdev+astropaper@gmail.com). Alternatively, feel free to open an issue if you find bugs or want to request new features.
+> 仅 UI 多语言：文章内容不分语言，所有语言下展示同一批文章。
 
-## 📜 License
+## 💻 技术栈
 
-Licensed under the MIT License, Copyright © 2026
+**主框架** - [Astro](https://astro.build/)  
+**类型检查** - [TypeScript](https://www.typescriptlang.org/)  
+**样式** - [TailwindCSS v4](https://tailwindcss.com/)  
+**静态搜索** - [Pagefind](https://pagefind.app/)  
+**图标** - [Tabler Icons](https://tabler-icons.io/)  
+**代码格式化** - [Prettier](https://prettier.io/)  
+**代码检查** - [ESLint](https://eslint.org)  
+**动态 OG 图** - [Satori](https://github.com/vercel/satori) + [Sharp](https://sharp.pixelplumbing.com/) + [Astro Fonts](https://docs.astro.build/en/guides/fonts/)  
+**部署** - [Cloudflare Pages](https://pages.cloudflare.com/)
 
----
+## 🖼️ 截图
 
-Made with 🤍 by [Sat Naing](https://satnaing.dev) 👨🏻‍💻 and [contributors](https://github.com/satnaing/astro-paper/graphs/contributors).
+<!-- 待补充： -->
+<!-- ![首页](docs/screenshots/home.png) -->
+<!-- ![文章页（含目录与阅读进度）](docs/screenshots/post.png) -->
+<!-- ![主题切换器](docs/screenshots/theme-picker.png) -->
+<!-- ![收藏夹](docs/screenshots/bookmarks.png) -->
+
+## 📜 许可与致谢
+
+本项目基于 [AstroPaper](https://github.com/satnaing/astro-paper)（作者 [Sat Naing](https://satnaing.dev)）二次开发，在此致谢。
+
+Licensed under the MIT License.
